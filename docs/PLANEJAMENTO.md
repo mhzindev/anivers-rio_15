@@ -9,15 +9,16 @@ Documento de referência do planejamento. O site ainda não foi construído: est
 | Aniversariante | Marcella Karoline |
 | Data | 10 de novembro de 2026 |
 | Horário | 19h |
-| Temática / código de vestimenta | Chapéu de palha |
-| Local | Recanto Estrela da Manhã |
+| Local | **Chapéu de Palha** |
+| Complemento do local | Recanto Estrela da Manhã |
 | Endereço | R. Seis, 5, Imperatriz - MA, 65913-726 |
-| Link do mapa | https://www.google.com/maps/search/?api=1&query=Recanto+Estrela+da+Manhã+R.+Seis,+5,+Imperatriz+-+MA,+65913-726 |
+| Link do mapa | https://www.google.com/maps/search/?api=1&query=Chapéu+de+Palha+R.+Seis,+5,+Imperatriz+-+MA,+65913-726 |
+| Código de vestimenta | Não definido (ver seção 10) |
 | Música | Nenhuma (sem áudio de abertura) |
 
 ## 2. Identidade visual
 
-**Conceito:** "Jardim de Esmeralda". A página é um jardim que se abre conforme a rolagem. A temática "chapéu de palha" traz um toque campestre e natural, combinado com o verde esmeralda e os brilhos do vestido.
+**Conceito:** "Jardim de Esmeralda". A página é um jardim que se abre conforme a rolagem. O local, Chapéu de Palha, traz um toque campestre e natural, combinado com o verde esmeralda e os brilhos do vestido.
 
 **Paleta**
 
@@ -26,7 +27,7 @@ Documento de referência do planejamento. O site ainda não foi construído: est
 | `--esmeralda` | `#0B5D3B` | Fundo principal |
 | `--musgo` | `#2F6B4F` | Planos secundários e cartões |
 | `--dourado` | `#C9A96E` | Ornamentos, filetes e botões |
-| `--palha` | `#E8D5A3` | Toques de "chapéu de palha" (bege palha) |
+| `--palha` | `#E8D5A3` | Toques campestres (bege palha) |
 | `--marfim` | `#FBF7EE` | Textos e superfícies claras |
 
 **Tipografia**
@@ -36,7 +37,7 @@ Documento de referência do planejamento. O site ainda não foi construído: est
 
 **Adornos e textura**
 - Ramos, folhas e flores em SVG com traço dourado, que "crescem" ao entrar na seção
-- Chapéu de palha como elemento recorrente (ícone de separador entre seções e no portão)
+- Chapéu de palha como ícone recorrente (separador entre seções e no portão)
 - Glitter em overlay sutil, apenas em destaques (título e botão principal)
 - Pétalas em segundo plano
 
@@ -59,10 +60,10 @@ Documento de referência do planejamento. O site ainda não foi construído: est
 | 2 | **Carta de boas-vindas** | Texto revelado linha a linha (`stagger`) | Mensagem curta de boas-vindas |
 | 3 | **Contagem regressiva** | Números com efeito de virada | Dias, horas, minutos e segundos até 10/11/2026, 19h |
 | 4 | **Nossa história** | **Scroll horizontal com `pin`**; fotos avançam por idade | Cartões polaroid: infância → 15 anos → hoje |
-| 5 | **Local e horário** | Parallax nas fotos do local | Endereço, horário e botão "Abrir no Google Maps" |
+| 5 | **Local e horário** | Parallax nas fotos do local | Nome do local, endereço, horário e botão "Abrir no Google Maps" |
 | 6 | **Programação** | Itens acendem um a um conforme a rolagem | Chegada, cerimônia, valsa, jantar e festa |
-| 7 | **Código de vestimenta** | Amostras de verde esmeralda e palha que se espalham ao rolar | Convite para vir de chapéu de palha, com tons de verde e dourado |
-| 8 | **Lista de presentes** | Cartões 3D que viram ao toque | Itens da lista (seção 6), com status "já escolhido" |
+| 7 | **Vestimenta / cores** | Amostras de verde esmeralda e dourado que se espalham ao rolar | Conteúdo a definir (ver seção 10) |
+| 8 | **Lista de presentes** | Cartões 3D que viram ao toque | Itens da lista (seção 6), com status "já escolhido" e chave Pix (seção 7) |
 | 9 | **Confirmação de presença (RSVP)** | Formulário com entrada escalonada e feedback animado | Nome, sim ou não, acompanhantes, restrições e mensagem |
 | 10 | **Página de obrigado** | Chuva de pétalas ou confete dourado | Agradecimento, contagem regressiva e botão "Adicionar ao calendário" (.ics) |
 | 11 | **Rodapé** | Fixo | Assinatura da família |
@@ -73,7 +74,7 @@ Documento de referência do planejamento. O site ainda não foi construído: est
 - Substituição das imagens placeholder pelas fotos reais em uma etapa posterior
 
 ### Local (seção 5)
-- Fotos do Recanto Estrela da Manhã: espaço reservado, a serem adicionadas depois
+- Fotos do Chapéu de Palha: espaço reservado, a serem adicionadas depois
 - Botão de mapa apontando para o endereço acima
 
 ## 5. Confirmação de presença (RSVP)
@@ -145,12 +146,13 @@ Após o envio, o convidado é levado à página de obrigado.
 
 ## 10. Pendências
 
+- **Código de vestimenta:** não foi definido. A seção 7 foi reservada, mas o conteúdo depende da sua decisão. Sugestão: "Verde esmeralda e tons de verde e dourado", que combina com o vestido. Também podemos deixar a seção fora do convite.
+- **Recanto Estrela da Manhã:** foi mantido como complemento do local. Se for o nome da propriedade e não quiser exibi-lo, removo essa linha.
 - Fotos reais para a galeria e para o local (etapa posterior)
-- Confirmação de que "Chapéu de palha" é o código de vestimenta, e não o nome do espaço (assumido aqui como código de vestimenta)
 
 ## 11. Próximos passos
 
-1. Aprovação deste planejamento
+1. Aprovação deste planejamento, com a decisão sobre o código de vestimenta
 2. Estrutura base do projeto, com HTML, CSS e JavaScript, GSAP e cliente Supabase
 3. Criação das tabelas e políticas de segurança no Supabase
 4. Construção das seções na ordem da seção 4
