@@ -6,146 +6,138 @@
 <title>Marcella Karoline · 15 anos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --esmeralda:#0B5D3B; --musgo:#2F6B4F; --dourado:#C9A96E; --palha:#E8D5A3; --marfim:#FBF7EE;
+  --noite:#052e1e;
+  --gutter:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--esmeralda)}
+html,body{background:var(--noite)}
 .hero{
-  position:relative; width:390px; height:844px; overflow:hidden; margin:0 auto;
-  padding:0 16px; color:var(--marfim);
+  position:relative; width:390px; height:844px; overflow:hidden; margin:0 auto; color:var(--marfim);
   background:
-    radial-gradient(ellipse 90% 55% at 50% 42%, #137a4e 0%, rgba(19,122,78,0) 70%),
-    linear-gradient(180deg,#084a30 0%, var(--esmeralda) 45%, #07432c 100%);
-  display:flex; flex-direction:column; align-items:center; text-align:center;
+    radial-gradient(120% 60% at 100% 38%, rgba(19,122,78,.75) 0%, rgba(11,93,59,0) 60%),
+    radial-gradient(80% 40% at 0% 100%, rgba(201,169,110,.10) 0%, rgba(201,169,110,0) 70%),
+    linear-gradient(180deg,#052e1e 0%, #073d28 55%, #052e1e 100%);
+  font-family:'Jost',sans-serif;
 }
-/* glitter overlay */
-.glitter{position:absolute; inset:0; pointer-events:none; opacity:.55;
-  background-image:
-    radial-gradient(1.2px 1.2px at 12% 8%, var(--palha) 50%, transparent 51%),
-    radial-gradient(1px 1px at 78% 14%, var(--marfim) 50%, transparent 51%),
-    radial-gradient(1.4px 1.4px at 32% 27%, var(--dourado) 50%, transparent 51%),
-    radial-gradient(1px 1px at 90% 36%, var(--palha) 50%, transparent 51%),
-    radial-gradient(1.3px 1.3px at 8% 48%, var(--marfim) 50%, transparent 51%),
-    radial-gradient(1px 1px at 66% 58%, var(--dourado) 50%, transparent 51%),
-    radial-gradient(1.2px 1.2px at 22% 72%, var(--palha) 50%, transparent 51%),
-    radial-gradient(1px 1px at 84% 80%, var(--marfim) 50%, transparent 51%),
-    radial-gradient(1.3px 1.3px at 48% 92%, var(--dourado) 50%, transparent 51%),
-    radial-gradient(1px 1px at 58% 5%, var(--marfim) 50%, transparent 51%);
-  background-size:130px 150px, 170px 190px, 110px 140px, 150px 120px, 190px 160px, 120px 170px, 160px 130px, 140px 180px, 180px 150px, 100px 120px;
-}
-.glitter.b{opacity:.35; transform:translate(37px,53px); background-size:97px 113px,143px 131px,89px 127px,157px 101px,173px 139px,109px 151px,131px 97px,119px 163px,167px 123px,83px 107px}
-.vine{position:absolute; width:118px; height:auto; opacity:.95}
-.vine.tl{top:-6px; left:-8px}
-.vine.br{bottom:-6px; right:-8px; transform:rotate(180deg)}
-.vine.tr{top:-6px; right:-8px; transform:scaleX(-1); opacity:.7; width:92px}
-.vine.bl{bottom:-6px; left:-8px; transform:scaleY(-1); opacity:.7; width:92px}
-.content{position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; padding-top:92px}
-.hat{width:44px; height:auto; margin-bottom:18px}
-.eyebrow{font-family:'Jost',sans-serif; font-weight:400; font-size:11px; letter-spacing:.42em; text-transform:uppercase; color:var(--palha); margin-bottom:10px; padding-left:.42em}
-h1{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:50px; line-height:1.02; color:var(--marfim);
-  text-shadow:0 0 18px rgba(232,213,163,.35)}
-h1 em{display:block; font-style:italic; font-weight:400; color:var(--palha)}
-.glit-text{background:linear-gradient(100deg,#fbf7ee 0%,#e8d5a3 30%,#fff 45%,#c9a96e 60%,#fbf7ee 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 0 10px rgba(232,213,163,.35))}
-.divider{display:flex; align-items:center; gap:10px; margin:18px 0 6px; width:220px}
-.divider i{flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--dourado))}
-.divider i:last-child{transform:scaleX(-1)}
-.divider svg{width:18px;height:18px}
-.nome{font-family:'Great Vibes',cursive; font-size:70px; line-height:1.05; color:var(--marfim); margin-top:4px;
-  text-shadow:0 2px 14px rgba(0,0,0,.25)}
-.nome span{display:block}
-.nome .k{color:var(--palha); margin-top:-6px}
-.photo{width:128px; height:128px; border-radius:50%; margin:22px 0 0; border:1px solid rgba(201,169,110,.65);
-  outline:1px solid rgba(201,169,110,.28); outline-offset:6px;
-  background:radial-gradient(circle at 50% 40%, rgba(47,107,79,.55), rgba(11,93,59,.25));
-  display:flex; align-items:center; justify-content:center; font-family:'Jost',sans-serif; font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,213,163,.7)}
-.data{margin-top:26px; font-family:'Cormorant Garamond',serif; font-weight:500; font-size:22px; letter-spacing:.04em; color:var(--palha)}
-.data b{color:var(--dourado); padding:0 6px; font-weight:400}
-.sub{margin-top:14px; max-width:310px; text-wrap:balance; font-family:'Jost',sans-serif; font-weight:300; font-size:15px; line-height:1.55; color:var(--marfim)}
+/* grão fino: textura de papel/veludo em vez de confete */
+.grain{position:absolute; inset:0; pointer-events:none; opacity:.16; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* brilho pontual, só perto do título */
+.sparkle{position:absolute; pointer-events:none; width:3px; height:3px; border-radius:50%; background:var(--palha); box-shadow:0 0 8px 2px rgba(232,213,163,.55)}
+
+/* topo */
+.top{position:absolute; top:22px; left:var(--gutter); right:var(--gutter); display:flex; justify-content:space-between; align-items:center; z-index:5}
+.mono{font-family:'Cormorant Garamond',serif; font-size:20px; letter-spacing:.06em; color:var(--palha); display:flex; align-items:center; gap:8px}
+.mono i{display:block; width:22px; height:1px; background:var(--dourado)}
+.tag{font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--marfim); opacity:.85; display:flex; align-items:center; gap:8px;
+  padding:7px 12px; border:1px solid rgba(232,213,163,.28); border-radius:999px; background:rgba(251,247,238,.04); backdrop-filter:blur(6px)}
+.tag b{width:5px; height:5px; border-radius:50%; background:var(--palha); box-shadow:0 0 8px var(--palha)}
+
+/* título */
+h1{position:absolute; top:78px; left:var(--gutter); z-index:4; font-family:'Cormorant Garamond',serif; font-weight:300; font-size:68px; line-height:.92; letter-spacing:-.015em}
+h1 span{display:block}
+h1 em{font-style:italic; font-weight:300; margin-left:34px;
+  background:linear-gradient(95deg,#E8D5A3 0%,#fff6dc 38%,#C9A96E 70%,#E8D5A3 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent}
+
+/* arco (espaço da foto) */
+.arch{position:absolute; top:236px; right:var(--gutter); width:236px; height:310px; z-index:2;
+  border-radius:118px 118px 6px 6px; overflow:hidden;
+  border:1px solid rgba(201,169,110,.55);
+  background:
+    radial-gradient(90% 60% at 50% 18%, rgba(232,213,163,.22) 0%, rgba(232,213,163,0) 70%),
+    linear-gradient(180deg,#14805a 0%, #0B5D3B 45%, #063f29 100%);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.55), inset 0 0 0 6px rgba(5,46,30,.55)}
+.arch svg{position:absolute; inset:0; width:100%; height:100%}
+.arch .ph{position:absolute; top:44px; left:0; right:0; text-align:center; font-size:8px; letter-spacing:.32em; text-transform:uppercase; color:rgba(232,213,163,.55)}
+.arch-outline{position:absolute; top:226px; right:calc(var(--gutter) - 10px); width:256px; height:330px; border-radius:128px 128px 8px 8px; border:1px solid rgba(201,169,110,.22); z-index:1}
+
+/* bloco de data, coluna esquerda */
+.date{position:absolute; top:262px; left:var(--gutter); width:84px; z-index:3}
+.date .d{font-family:'Cormorant Garamond',serif; font-weight:300; font-size:64px; line-height:.9; color:var(--marfim)}
+.date .m{margin-top:8px; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--palha)}
+.date .y{font-size:10px; letter-spacing:.3em; color:rgba(251,247,238,.6); margin-top:4px}
+.date hr{border:0; height:1px; width:28px; background:var(--dourado); margin:16px 0}
+.date .h{font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:var(--palha)}
+.date .h small{font-family:'Jost'; font-size:9px; letter-spacing:.25em; text-transform:uppercase; color:rgba(251,247,238,.6); display:block; margin-top:2px}
+
+/* nome em caligrafia, sobreposto ao arco */
+.nome{position:absolute; left:10px; top:478px; z-index:4; font-family:'Great Vibes',cursive; line-height:.8; color:var(--marfim);
+  text-shadow:0 4px 24px rgba(3,30,19,.7)}
+.nome span{display:block; font-size:80px}
+.nome .k{margin-left:74px; font-size:80px; background:linear-gradient(95deg,#E8D5A3,#fff6dc 50%,#C9A96E);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; filter:drop-shadow(0 4px 14px rgba(3,30,19,.6))}
+
+/* convite pessoal + CTA */
+.lower{position:absolute; left:var(--gutter); right:var(--gutter); bottom:26px; z-index:5}
+.sub{font-weight:300; font-size:15.5px; line-height:1.5; color:rgba(251,247,238,.88); max-width:290px}
 .sub strong{font-weight:500; color:var(--palha)}
-.scroll{position:absolute; bottom:26px; left:0; right:0; z-index:2; display:flex; flex-direction:column; align-items:center; gap:6px; font-family:'Jost',sans-serif; font-size:9px; letter-spacing:.35em; text-transform:uppercase; color:var(--palha); opacity:.85; padding-left:.35em}
-.scroll svg{width:14px;height:14px}
+.cta{margin-top:18px; display:flex; align-items:center; justify-content:space-between; height:56px; padding:0 8px 0 24px; border-radius:999px; text-decoration:none;
+  background:linear-gradient(95deg,#E8D5A3,#C9A96E); color:#06321f; font-weight:500; font-size:14px; letter-spacing:.14em; text-transform:uppercase;
+  box-shadow:0 14px 30px -10px rgba(201,169,110,.55), inset 0 1px 0 rgba(255,255,255,.5)}
+.cta span{display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#06321f}
+.cta svg{width:16px;height:16px}
+.loc{margin-top:14px; display:flex; justify-content:space-between; align-items:center; font-size:11px; letter-spacing:.08em; color:rgba(251,247,238,.7)}
+.loc b{font-weight:400; color:var(--palha)}
+.loc u{text-decoration:none; display:flex; align-items:center; gap:6px; letter-spacing:.2em; text-transform:uppercase; font-size:9px}
 </style>
 </head>
 <body>
 <section class="hero">
-  <div class="glitter"></div><div class="glitter b"></div>
+  <div class="grain"></div>
+  <div class="sparkle" style="top:96px;left:214px"></div>
+  <div class="sparkle" style="top:156px;left:342px;opacity:.7;transform:scale(.7)"></div>
+  <div class="sparkle" style="top:214px;left:62px;opacity:.5;transform:scale(.6)"></div>
 
-  <svg style="display:none">
-    <defs>
-      <g id="leaf"><path d="M0 0 C10 -10 26 -10 34 0 C26 10 10 10 0 0Z" fill="rgba(201,169,110,.14)" stroke="#C9A96E" stroke-width="1.2"/><path d="M2 0 H30" stroke="#C9A96E" stroke-width=".8"/></g>
-      <g id="flower"><g fill="rgba(201,169,110,.16)" stroke="#C9A96E" stroke-width="1.1">
-        <ellipse cx="0" cy="-9" rx="4.5" ry="9"/><ellipse cx="0" cy="-9" rx="4.5" ry="9" transform="rotate(72)"/><ellipse cx="0" cy="-9" rx="4.5" ry="9" transform="rotate(144)"/><ellipse cx="0" cy="-9" rx="4.5" ry="9" transform="rotate(216)"/><ellipse cx="0" cy="-9" rx="4.5" ry="9" transform="rotate(288)"/></g>
-        <circle r="3" fill="#E8D5A3"/></g>
-    </defs>
-  </svg>
+  <header class="top">
+    <div class="mono">M<i></i>K</div>
+    <div class="tag"><b></b>Convite pessoal</div>
+  </header>
 
-  <!-- ornamento floral (canto) -->
-  <svg class="vine tl" viewBox="0 0 190 230" fill="none">
-    <path d="M-4 20 C60 30 90 70 100 130 S120 200 150 232" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M-4 60 C40 62 64 90 70 132" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"/>
-    <use href="#leaf" transform="translate(30 30) rotate(30)"/>
-    <use href="#leaf" transform="translate(62 46) rotate(-40)"/>
-    <use href="#leaf" transform="translate(84 84) rotate(40)"/>
-    <use href="#leaf" transform="translate(98 122) rotate(-60)"/>
-    <use href="#leaf" transform="translate(106 160) rotate(30)"/>
-    <use href="#leaf" transform="translate(40 66) rotate(70)"/>
-    <use href="#leaf" transform="translate(64 108) rotate(-20)"/>
-    <use href="#flower" transform="translate(30 98) scale(1.15)"/>
-    <use href="#flower" transform="translate(122 70) scale(.8)"/>
-    <use href="#flower" transform="translate(142 196) scale(.9)"/>
-    <circle cx="14" cy="44" r="2" fill="#E8D5A3"/><circle cx="76" cy="62" r="1.6" fill="#E8D5A3"/><circle cx="120" cy="140" r="1.8" fill="#E8D5A3"/>
-  </svg>
-  <svg class="vine tr" viewBox="0 0 190 230" fill="none">
-    <path d="M-4 20 C60 30 90 70 100 130 S120 200 150 232" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round"/>
-    <use href="#leaf" transform="translate(30 30) rotate(30)"/>
-    <use href="#leaf" transform="translate(62 46) rotate(-40)"/>
-    <use href="#leaf" transform="translate(84 84) rotate(40)"/>
-    <use href="#leaf" transform="translate(98 122) rotate(-60)"/>
-    <use href="#flower" transform="translate(122 70) scale(.8)"/>
-  </svg>
-  <svg class="vine br" viewBox="0 0 190 230" fill="none">
-    <path d="M-4 20 C60 30 90 70 100 130 S120 200 150 232" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M-4 60 C40 62 64 90 70 132" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"/>
-    <use href="#leaf" transform="translate(30 30) rotate(30)"/>
-    <use href="#leaf" transform="translate(62 46) rotate(-40)"/>
-    <use href="#leaf" transform="translate(84 84) rotate(40)"/>
-    <use href="#leaf" transform="translate(98 122) rotate(-60)"/>
-    <use href="#leaf" transform="translate(40 66) rotate(70)"/>
-    <use href="#flower" transform="translate(30 98) scale(1.15)"/>
-    <use href="#flower" transform="translate(122 70) scale(.8)"/>
-  </svg>
-  <svg class="vine bl" viewBox="0 0 190 230" fill="none">
-    <path d="M-4 20 C60 30 90 70 100 130 S120 200 150 232" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round"/>
-    <use href="#leaf" transform="translate(30 30) rotate(30)"/>
-    <use href="#leaf" transform="translate(84 84) rotate(40)"/>
-    <use href="#flower" transform="translate(122 70) scale(.8)"/>
-  </svg>
+  <h1><span>Quinze</span><span><em>primaveras</em></span></h1>
 
-  <div class="content">
-    <!-- chapéu de palha -->
-    <svg class="hat" viewBox="0 0 60 36" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round">
-      <ellipse cx="30" cy="26" rx="28" ry="7" fill="rgba(201,169,110,.12)"/>
-      <path d="M14 25 C14 8 46 8 46 25" fill="rgba(201,169,110,.12)"/>
-      <path d="M15 21 C24 25 36 25 45 21" stroke="#E8D5A3"/>
-      <path d="M8 27 C20 31 40 31 52 27" stroke-width=".8" opacity=".7"/>
+  <div class="arch-outline"></div>
+  <div class="arch">
+    <div class="ph">Espaço para foto</div>
+    <!-- linha botânica ampla, sangrando fora do arco -->
+    <svg viewBox="0 0 236 310" fill="none" stroke="#C9A96E" stroke-linecap="round" opacity=".55">
+      <path d="M118 320 C112 250 120 190 108 120 C100 80 112 50 118 20" stroke-width="1.2"/>
+      <g stroke-width="1" fill="rgba(201,169,110,.07)">
+        <path d="M112 250 C80 244 56 226 46 200 C74 202 100 220 112 250Z"/>
+        <path d="M118 236 C150 230 176 212 188 186 C160 188 130 204 118 236Z"/>
+        <path d="M112 190 C84 182 64 164 56 140 C82 142 104 160 112 190Z"/>
+        <path d="M116 172 C146 164 166 146 174 120 C148 124 126 142 116 172Z"/>
+        <path d="M108 128 C86 118 72 102 68 80 C88 84 104 100 108 128Z"/>
+        <path d="M112 112 C134 104 148 88 152 66 C132 70 116 86 112 112Z"/>
+        <path d="M112 70 C100 62 94 50 94 36 C106 42 114 54 112 70Z"/>
+      </g>
+      <g stroke-width=".7" opacity=".8">
+        <path d="M112 250 C86 238 66 222 46 200"/><path d="M118 236 C146 224 170 208 188 186"/>
+        <path d="M112 190 C90 178 72 160 56 140"/><path d="M116 172 C142 160 160 142 174 120"/>
+      </g>
     </svg>
-    <div class="eyebrow">Você está convidado</div>
-    <h1><span class="glit-text">Quinze</span><em class="glit-text">primaveras</em></h1>
-    <div class="divider"><i></i>
-      <svg viewBox="0 0 20 20"><use href="#flower" transform="translate(10 10) scale(.5)"/></svg><i></i></div>
-    <div class="nome"><span>Marcella</span><span class="k">Karoline</span></div>
-    <div class="photo">Foto</div>
-    <div class="data">10 de novembro de 2026<b>·</b>19h</div>
-    <p class="sub"><strong>Ana</strong>, sua presença vai tornar esta noite inesquecível</p>
   </div>
 
-  <div class="scroll">Role
-    <svg viewBox="0 0 14 14" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+  <div class="date">
+    <div class="d">10</div>
+    <div class="m">Novembro</div>
+    <div class="y">2026</div>
+    <hr>
+    <div class="h">19h<small>Recepção</small></div>
+  </div>
+
+  <div class="nome"><span>Marcella</span><span class="k">Karoline</span></div>
+
+  <div class="lower">
+    <p class="sub"><strong>Ana</strong>, sua presença vai tornar esta noite inesquecível</p>
+    <a class="cta" href="#rsvp">Confirmar presença
+      <span><svg viewBox="0 0 16 16" fill="none" stroke="#E8D5A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+    </a>
+    <div class="loc"><b>Chapéu de Palha · Imperatriz, MA</b><u>Role ↓</u></div>
   </div>
 </section>
 </body>
