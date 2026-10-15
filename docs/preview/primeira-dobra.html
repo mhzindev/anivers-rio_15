@@ -3,94 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Marcella Karoline · 15 anos</title>
+<title>Aniversário de 15 anos · Marcella Karoline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --esmeralda:#0B5D3B; --musgo:#2F6B4F; --dourado:#C9A96E; --palha:#E8D5A3; --marfim:#FBF7EE;
-  --noite:#03140d; --g:20px;
-}
+:root{--esmeralda:#0B5D3B; --musgo:#2F6B4F; --dourado:#C9A96E; --marfim:#FBF7EE; --g:16px}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--noite)}
-.hero{position:relative; width:390px; height:844px; overflow:hidden; margin:0 auto; color:var(--marfim); background:var(--noite); font-family:'Jost',sans-serif}
-
-/* foto em sangria total */
-.photo{position:absolute; inset:0; background:url(assets/hero-vestido.jpg) 50% 0/auto 800px no-repeat; transform-origin:50% 20%}
-/* grade de cor: funde o fundo marrom da foto no verde-noite */
-.grade{position:absolute; inset:0;
-  background:
-    linear-gradient(180deg, rgba(3,20,13,.5) 0%, rgba(3,20,13,0) 16%),
-    linear-gradient(180deg, rgba(3,20,13,0) 36%, rgba(3,20,13,.82) 58%, #03140d 76%),
-    linear-gradient(90deg, rgba(3,40,26,.55) 0%, rgba(3,40,26,0) 38%, rgba(3,40,26,0) 62%, rgba(3,40,26,.55) 100%);
-}
-.tint{position:absolute; inset:0; background:#0B5D3B; mix-blend-mode:soft-light; opacity:.4}
-.grain{position:absolute; inset:0; pointer-events:none; opacity:.14; mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-
-/* topo */
-.nav{position:absolute; top:20px; left:var(--g); right:var(--g); z-index:6; display:flex; justify-content:space-between; align-items:center}
-.brand{font-size:11px; letter-spacing:.34em; font-weight:400; text-transform:uppercase}
-.nav .r{display:flex; align-items:center; gap:14px; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--palha)}
-.nav .r i{display:block; width:26px; height:1px; background:var(--palha); box-shadow:0 6px 0 var(--palha)}
-.side{position:absolute; z-index:5; left:7px; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; font-size:8.5px; letter-spacing:.36em; text-transform:uppercase; color:rgba(251,247,238,.6)}
-.side2{left:auto; right:7px; transform:translateY(-50%)}
-
-/* "15" em sangria, como carimbo editorial */
-.num{position:absolute; z-index:3; right:12px; top:92px; font-family:'Cormorant Garamond',serif; font-weight:300; font-size:150px; line-height:.8; letter-spacing:-.05em; color:transparent;
-  -webkit-text-stroke:1px rgba(232,213,163,.75); text-shadow:none}
-
-/* bloco principal */
-.script{position:absolute; z-index:5; left:var(--g); top:440px; font-family:'Great Vibes',cursive; font-size:50px; line-height:1; color:var(--palha); transform:rotate(-5deg); transform-origin:left bottom;
-  text-shadow:0 2px 18px rgba(0,0,0,.6)}
-.name{position:absolute; z-index:4; left:calc(var(--g) - 3px); right:0; top:490px; font-family:'Cormorant Garamond',serif; font-weight:300; text-transform:uppercase; font-size:68px; line-height:.88; letter-spacing:-.02em;
-  text-shadow:0 4px 30px rgba(0,0,0,.45)}
-.name span{display:block}
-.name .b{font-style:italic; font-weight:300; color:var(--palha); letter-spacing:-.01em; padding-left:0}
-
-.meta{position:absolute; z-index:5; left:var(--g); right:var(--g); top:640px; display:grid; grid-template-columns:1.25fr .7fr 1.2fr; border-top:1px solid rgba(232,213,163,.35); padding-top:11px}
-.meta div{font-size:12.5px; letter-spacing:.04em; line-height:1.25}
-.meta small{display:block; font-size:8px; letter-spacing:.32em; text-transform:uppercase; color:var(--dourado); margin-bottom:5px}
-
-.sub{position:absolute; z-index:5; left:var(--g); right:var(--g); top:698px; font-weight:300; font-size:14.5px; line-height:1.45; color:rgba(251,247,238,.9); max-width:300px}
-.sub b{font-weight:500; color:var(--palha)}
-
-.cta{position:absolute; z-index:6; left:var(--g); right:var(--g); bottom:28px; height:54px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; text-decoration:none;
-  background:var(--marfim); color:#03140d; font-weight:500; font-size:11.5px; letter-spacing:.3em; text-transform:uppercase}
-.cta svg{width:22px; height:12px}
+html,body{background:var(--marfim)}
+.hero{position:relative; width:390px; height:844px; margin:0 auto; overflow:hidden; background:var(--marfim); color:var(--esmeralda);
+  font-family:'Inter',sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 var(--g)}
+.eyebrow{font-weight:400; font-size:15px; line-height:1.5; letter-spacing:-.005em; color:var(--musgo); max-width:240px}
+.kicker{margin-top:44px; font-weight:700; font-size:15px; letter-spacing:.34em; text-transform:uppercase; padding-left:.34em}
+.fifteen{position:relative; margin-top:4px; font-weight:800; font-size:236px; line-height:.86; letter-spacing:-.075em; padding-right:.075em; cursor:default;
+  background:linear-gradient(105deg,var(--esmeralda) 0%,var(--esmeralda) 40%,#2d8a5f 48%,var(--dourado) 52%,#2d8a5f 54%,var(--esmeralda) 58%,var(--esmeralda) 100%);
+  background-size:260% 100%; background-position:100% 0;
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  transition:background-position 1.1s cubic-bezier(.2,.7,.2,1)}
+.fifteen:hover{background-position:0% 0}
+.anos{margin-top:2px; font-weight:800; font-size:54px; line-height:1; letter-spacing:-.045em}
+.rule{width:44px; height:1px; background:var(--dourado); margin:38px 0 22px}
+.sub{font-weight:300; font-size:19px; line-height:1.4; letter-spacing:-.01em; max-width:270px; color:var(--esmeralda)}
+.cue{position:absolute; bottom:0; left:50%; width:1px; height:48px; background:linear-gradient(180deg,rgba(201,169,110,0),var(--dourado))}
 </style>
 </head>
 <body>
 <section class="hero">
-  <div class="photo"></div>
-  <div class="tint"></div>
-  <div class="grade"></div>
-  <div class="grain"></div>
-
-  <header class="nav">
-    <div class="brand">M—K</div>
-    <div class="r">Convite · Ana <i></i></div>
-  </header>
-  <div class="side">Quinze primaveras — Edição 2026</div>
-  <div class="side side2">Imperatriz · Maranhão</div>
-
-  <div class="num">15</div>
-
-  <div class="script">Quinze primaveras</div>
-  <h1 class="name"><span>Marcella</span><span class="b">Karoline</span></h1>
-
-  <div class="meta">
-    <div><small>Data</small>10 · 11 · 2026</div>
-    <div><small>Hora</small>19h</div>
-    <div><small>Local</small>Chapéu de Palha</div>
-  </div>
-
-  <p class="sub"><b>Ana</b>, sua presença vai tornar esta noite inesquecível</p>
-
-  <a class="cta" href="#rsvp">Confirmar presença
-    <svg viewBox="0 0 22 12" fill="none" stroke="#03140d" stroke-width="1.4"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
-  </a>
+  <p class="eyebrow">Você está convidado a fazer parte do meu</p>
+  <h1 style="display:contents">
+    <span class="kicker">Aniversário de</span>
+    <span class="fifteen">15</span>
+    <span class="anos">anos</span>
+  </h1>
+  <i class="rule"></i>
+  <p class="sub">Sua presença vai tornar esta noite inesquecível</p>
+  <i class="cue"></i>
 </section>
 </body>
 </html>
