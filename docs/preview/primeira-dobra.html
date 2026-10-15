@@ -10,135 +10,87 @@
 <style>
 :root{
   --esmeralda:#0B5D3B; --musgo:#2F6B4F; --dourado:#C9A96E; --palha:#E8D5A3; --marfim:#FBF7EE;
-  --noite:#052e1e;
-  --gutter:24px;
+  --noite:#03140d; --g:20px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--noite)}
-.hero{
-  position:relative; width:390px; height:844px; overflow:hidden; margin:0 auto; color:var(--marfim);
+.hero{position:relative; width:390px; height:844px; overflow:hidden; margin:0 auto; color:var(--marfim); background:var(--noite); font-family:'Jost',sans-serif}
+
+/* foto em sangria total */
+.photo{position:absolute; inset:0; background:url(assets/hero-vestido.jpg) 50% 0/auto 800px no-repeat; transform-origin:50% 20%}
+/* grade de cor: funde o fundo marrom da foto no verde-noite */
+.grade{position:absolute; inset:0;
   background:
-    radial-gradient(120% 60% at 100% 38%, rgba(19,122,78,.75) 0%, rgba(11,93,59,0) 60%),
-    radial-gradient(80% 40% at 0% 100%, rgba(201,169,110,.10) 0%, rgba(201,169,110,0) 70%),
-    linear-gradient(180deg,#052e1e 0%, #073d28 55%, #052e1e 100%);
-  font-family:'Jost',sans-serif;
+    linear-gradient(180deg, rgba(3,20,13,.5) 0%, rgba(3,20,13,0) 16%),
+    linear-gradient(180deg, rgba(3,20,13,0) 36%, rgba(3,20,13,.82) 58%, #03140d 76%),
+    linear-gradient(90deg, rgba(3,40,26,.55) 0%, rgba(3,40,26,0) 38%, rgba(3,40,26,0) 62%, rgba(3,40,26,.55) 100%);
 }
-/* grão fino: textura de papel/veludo em vez de confete */
-.grain{position:absolute; inset:0; pointer-events:none; opacity:.16; mix-blend-mode:overlay;
+.tint{position:absolute; inset:0; background:#0B5D3B; mix-blend-mode:soft-light; opacity:.4}
+.grain{position:absolute; inset:0; pointer-events:none; opacity:.14; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-/* brilho pontual, só perto do título */
-.sparkle{position:absolute; pointer-events:none; width:3px; height:3px; border-radius:50%; background:var(--palha); box-shadow:0 0 8px 2px rgba(232,213,163,.55)}
 
 /* topo */
-.top{position:absolute; top:22px; left:var(--gutter); right:var(--gutter); display:flex; justify-content:space-between; align-items:center; z-index:5}
-.mono{font-family:'Cormorant Garamond',serif; font-size:20px; letter-spacing:.06em; color:var(--palha); display:flex; align-items:center; gap:8px}
-.mono i{display:block; width:22px; height:1px; background:var(--dourado)}
-.tag{font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--marfim); opacity:.85; display:flex; align-items:center; gap:8px;
-  padding:7px 12px; border:1px solid rgba(232,213,163,.28); border-radius:999px; background:rgba(251,247,238,.04); backdrop-filter:blur(6px)}
-.tag b{width:5px; height:5px; border-radius:50%; background:var(--palha); box-shadow:0 0 8px var(--palha)}
+.nav{position:absolute; top:20px; left:var(--g); right:var(--g); z-index:6; display:flex; justify-content:space-between; align-items:center}
+.brand{font-size:11px; letter-spacing:.34em; font-weight:400; text-transform:uppercase}
+.nav .r{display:flex; align-items:center; gap:14px; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--palha)}
+.nav .r i{display:block; width:26px; height:1px; background:var(--palha); box-shadow:0 6px 0 var(--palha)}
+.side{position:absolute; z-index:5; left:7px; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; font-size:8.5px; letter-spacing:.36em; text-transform:uppercase; color:rgba(251,247,238,.6)}
+.side2{left:auto; right:7px; transform:translateY(-50%)}
 
-/* título */
-h1{position:absolute; top:78px; left:var(--gutter); z-index:4; font-family:'Cormorant Garamond',serif; font-weight:300; font-size:68px; line-height:.92; letter-spacing:-.015em}
-h1 span{display:block}
-h1 em{font-style:italic; font-weight:300; margin-left:34px;
-  background:linear-gradient(95deg,#E8D5A3 0%,#fff6dc 38%,#C9A96E 70%,#E8D5A3 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent}
+/* "15" em sangria, como carimbo editorial */
+.num{position:absolute; z-index:3; right:12px; top:92px; font-family:'Cormorant Garamond',serif; font-weight:300; font-size:150px; line-height:.8; letter-spacing:-.05em; color:transparent;
+  -webkit-text-stroke:1px rgba(232,213,163,.75); text-shadow:none}
 
-/* arco (espaço da foto) */
-.arch{position:absolute; top:236px; right:var(--gutter); width:236px; height:310px; z-index:2;
-  border-radius:118px 118px 6px 6px; overflow:hidden;
-  border:1px solid rgba(201,169,110,.55);
-  background:
-    radial-gradient(90% 60% at 50% 18%, rgba(232,213,163,.22) 0%, rgba(232,213,163,0) 70%),
-    linear-gradient(180deg,#14805a 0%, #0B5D3B 45%, #063f29 100%);
-  box-shadow:0 30px 60px -20px rgba(0,0,0,.55), inset 0 0 0 6px rgba(5,46,30,.55)}
-.arch svg{position:absolute; inset:0; width:100%; height:100%}
-.arch .ph{position:absolute; top:44px; left:0; right:0; text-align:center; font-size:8px; letter-spacing:.32em; text-transform:uppercase; color:rgba(232,213,163,.55)}
-.arch-outline{position:absolute; top:226px; right:calc(var(--gutter) - 10px); width:256px; height:330px; border-radius:128px 128px 8px 8px; border:1px solid rgba(201,169,110,.22); z-index:1}
+/* bloco principal */
+.script{position:absolute; z-index:5; left:var(--g); top:440px; font-family:'Great Vibes',cursive; font-size:50px; line-height:1; color:var(--palha); transform:rotate(-5deg); transform-origin:left bottom;
+  text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.name{position:absolute; z-index:4; left:calc(var(--g) - 3px); right:0; top:490px; font-family:'Cormorant Garamond',serif; font-weight:300; text-transform:uppercase; font-size:68px; line-height:.88; letter-spacing:-.02em;
+  text-shadow:0 4px 30px rgba(0,0,0,.45)}
+.name span{display:block}
+.name .b{font-style:italic; font-weight:300; color:var(--palha); letter-spacing:-.01em; padding-left:0}
 
-/* bloco de data, coluna esquerda */
-.date{position:absolute; top:262px; left:var(--gutter); width:84px; z-index:3}
-.date .d{font-family:'Cormorant Garamond',serif; font-weight:300; font-size:64px; line-height:.9; color:var(--marfim)}
-.date .m{margin-top:8px; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--palha)}
-.date .y{font-size:10px; letter-spacing:.3em; color:rgba(251,247,238,.6); margin-top:4px}
-.date hr{border:0; height:1px; width:28px; background:var(--dourado); margin:16px 0}
-.date .h{font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:var(--palha)}
-.date .h small{font-family:'Jost'; font-size:9px; letter-spacing:.25em; text-transform:uppercase; color:rgba(251,247,238,.6); display:block; margin-top:2px}
+.meta{position:absolute; z-index:5; left:var(--g); right:var(--g); top:640px; display:grid; grid-template-columns:1.25fr .7fr 1.2fr; border-top:1px solid rgba(232,213,163,.35); padding-top:11px}
+.meta div{font-size:12.5px; letter-spacing:.04em; line-height:1.25}
+.meta small{display:block; font-size:8px; letter-spacing:.32em; text-transform:uppercase; color:var(--dourado); margin-bottom:5px}
 
-/* nome em caligrafia, sobreposto ao arco */
-.nome{position:absolute; left:10px; top:478px; z-index:4; font-family:'Great Vibes',cursive; line-height:.8; color:var(--marfim);
-  text-shadow:0 4px 24px rgba(3,30,19,.7)}
-.nome span{display:block; font-size:80px}
-.nome .k{margin-left:74px; font-size:80px; background:linear-gradient(95deg,#E8D5A3,#fff6dc 50%,#C9A96E);
-  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; filter:drop-shadow(0 4px 14px rgba(3,30,19,.6))}
+.sub{position:absolute; z-index:5; left:var(--g); right:var(--g); top:698px; font-weight:300; font-size:14.5px; line-height:1.45; color:rgba(251,247,238,.9); max-width:300px}
+.sub b{font-weight:500; color:var(--palha)}
 
-/* convite pessoal + CTA */
-.lower{position:absolute; left:var(--gutter); right:var(--gutter); bottom:26px; z-index:5}
-.sub{font-weight:300; font-size:15.5px; line-height:1.5; color:rgba(251,247,238,.88); max-width:290px}
-.sub strong{font-weight:500; color:var(--palha)}
-.cta{margin-top:18px; display:flex; align-items:center; justify-content:space-between; height:56px; padding:0 8px 0 24px; border-radius:999px; text-decoration:none;
-  background:linear-gradient(95deg,#E8D5A3,#C9A96E); color:#06321f; font-weight:500; font-size:14px; letter-spacing:.14em; text-transform:uppercase;
-  box-shadow:0 14px 30px -10px rgba(201,169,110,.55), inset 0 1px 0 rgba(255,255,255,.5)}
-.cta span{display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#06321f}
-.cta svg{width:16px;height:16px}
-.loc{margin-top:14px; display:flex; justify-content:space-between; align-items:center; font-size:11px; letter-spacing:.08em; color:rgba(251,247,238,.7)}
-.loc b{font-weight:400; color:var(--palha)}
-.loc u{text-decoration:none; display:flex; align-items:center; gap:6px; letter-spacing:.2em; text-transform:uppercase; font-size:9px}
+.cta{position:absolute; z-index:6; left:var(--g); right:var(--g); bottom:28px; height:54px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; text-decoration:none;
+  background:var(--marfim); color:#03140d; font-weight:500; font-size:11.5px; letter-spacing:.3em; text-transform:uppercase}
+.cta svg{width:22px; height:12px}
 </style>
 </head>
 <body>
 <section class="hero">
+  <div class="photo"></div>
+  <div class="tint"></div>
+  <div class="grade"></div>
   <div class="grain"></div>
-  <div class="sparkle" style="top:96px;left:214px"></div>
-  <div class="sparkle" style="top:156px;left:342px;opacity:.7;transform:scale(.7)"></div>
-  <div class="sparkle" style="top:214px;left:62px;opacity:.5;transform:scale(.6)"></div>
 
-  <header class="top">
-    <div class="mono">M<i></i>K</div>
-    <div class="tag"><b></b>Convite pessoal</div>
+  <header class="nav">
+    <div class="brand">M—K</div>
+    <div class="r">Convite · Ana <i></i></div>
   </header>
+  <div class="side">Quinze primaveras — Edição 2026</div>
+  <div class="side side2">Imperatriz · Maranhão</div>
 
-  <h1><span>Quinze</span><span><em>primaveras</em></span></h1>
+  <div class="num">15</div>
 
-  <div class="arch-outline"></div>
-  <div class="arch">
-    <div class="ph">Espaço para foto</div>
-    <!-- linha botânica ampla, sangrando fora do arco -->
-    <svg viewBox="0 0 236 310" fill="none" stroke="#C9A96E" stroke-linecap="round" opacity=".55">
-      <path d="M118 320 C112 250 120 190 108 120 C100 80 112 50 118 20" stroke-width="1.2"/>
-      <g stroke-width="1" fill="rgba(201,169,110,.07)">
-        <path d="M112 250 C80 244 56 226 46 200 C74 202 100 220 112 250Z"/>
-        <path d="M118 236 C150 230 176 212 188 186 C160 188 130 204 118 236Z"/>
-        <path d="M112 190 C84 182 64 164 56 140 C82 142 104 160 112 190Z"/>
-        <path d="M116 172 C146 164 166 146 174 120 C148 124 126 142 116 172Z"/>
-        <path d="M108 128 C86 118 72 102 68 80 C88 84 104 100 108 128Z"/>
-        <path d="M112 112 C134 104 148 88 152 66 C132 70 116 86 112 112Z"/>
-        <path d="M112 70 C100 62 94 50 94 36 C106 42 114 54 112 70Z"/>
-      </g>
-      <g stroke-width=".7" opacity=".8">
-        <path d="M112 250 C86 238 66 222 46 200"/><path d="M118 236 C146 224 170 208 188 186"/>
-        <path d="M112 190 C90 178 72 160 56 140"/><path d="M116 172 C142 160 160 142 174 120"/>
-      </g>
-    </svg>
+  <div class="script">Quinze primaveras</div>
+  <h1 class="name"><span>Marcella</span><span class="b">Karoline</span></h1>
+
+  <div class="meta">
+    <div><small>Data</small>10 · 11 · 2026</div>
+    <div><small>Hora</small>19h</div>
+    <div><small>Local</small>Chapéu de Palha</div>
   </div>
 
-  <div class="date">
-    <div class="d">10</div>
-    <div class="m">Novembro</div>
-    <div class="y">2026</div>
-    <hr>
-    <div class="h">19h<small>Recepção</small></div>
-  </div>
+  <p class="sub"><b>Ana</b>, sua presença vai tornar esta noite inesquecível</p>
 
-  <div class="nome"><span>Marcella</span><span class="k">Karoline</span></div>
-
-  <div class="lower">
-    <p class="sub"><strong>Ana</strong>, sua presença vai tornar esta noite inesquecível</p>
-    <a class="cta" href="#rsvp">Confirmar presença
-      <span><svg viewBox="0 0 16 16" fill="none" stroke="#E8D5A3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-    </a>
-    <div class="loc"><b>Chapéu de Palha · Imperatriz, MA</b><u>Role ↓</u></div>
-  </div>
+  <a class="cta" href="#rsvp">Confirmar presença
+    <svg viewBox="0 0 22 12" fill="none" stroke="#03140d" stroke-width="1.4"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
+  </a>
 </section>
 </body>
 </html>
