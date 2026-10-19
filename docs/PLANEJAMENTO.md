@@ -2,6 +2,8 @@
 
 Documento de referência do planejamento. O site ainda não foi construído: este arquivo serve de base para a implementação, que começa após a aprovação.
 
+> **Atualização (referência do convite):** a identidade visual passa a seguir fielmente o arquivo de referência enviado (Canva, 9:16): fundo branco, rosas aquareladas nos cantos, nome **Karoline**, **sábado, 14 de novembro de 2026, 19h00**, tipografia *The Mumbai Sticker* (nome e "15 anos") e *Glacial Indifference* (demais textos), tons de vinho `#890340` / `#A60148` e rosa `#DD2D7C`. Quatro ações: sugestões de presentes, requisitos, confirmar presença e endereço no mapa. As seções 2 (paleta esmeralda) e 4 (sequência) ficam como histórico até nova decisão. O convite implementado está em `index.html`.
+
 ## 1. Dados do evento
 
 | Item | Valor |
