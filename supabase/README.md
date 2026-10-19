@@ -9,6 +9,8 @@ Projeto: `odlicsrhxcwtmyfgfyya` ("Karol's Project").
   presente e o prazo (25/10/2026 23:59:59, Brasília) e faz *upsert* por **nome + número** (nome sem acento/caixa/espaços extras; mesmo número com nomes diferentes = pessoas diferentes).
 - `public.consultar_resposta(nome, numero)` só devolve a resposta quando nome **e** número conferem (usada para não duplicar e para mostrar "você já respondeu").
 - Leitura de `rsvps` só para usuários **autenticados cujo e-mail está em `public.admins`** (política `admins leem respostas`).
+- **Admin = conta real com e-mail confirmado** cujo e-mail está em `admins` (checado pelo id do token, não só pelo e-mail).
+- Objetos novos em `public` **não** ficam acessíveis a anon/authenticated por padrão (privilégios padrão revogados).
 - A tabela `admins` não é legível por ninguém pela API.
 
 ## Dar acesso ao painel (`/painel`)
