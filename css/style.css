@@ -200,7 +200,7 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .escolha--form.invalido .escolha__tit{color:#b3261e}
 
 /* Etapas da confirmação */
-[data-etapa="1"] .so-etapa2,[data-etapa="2"] .so-etapa1{display:none}
+[data-etapa="1"] .so-etapa2,[data-etapa="2"] .so-etapa1,[data-etapa="status"] .so-etapa1,[data-etapa="status"] .so-etapa2,[data-etapa="status"] .so-etapa-fluxo,[data-etapa="1"] .so-status,[data-etapa="2"] .so-status{display:none}
 .passos{display:flex;gap:calc(10*var(--s));margin-top:calc(22*var(--s))}
 .passos span{width:calc(64*var(--s));height:calc(8*var(--s));min-height:4px;border-radius:99px;background:#f3d3e0;transition:background .2s ease}
 .passos span.on{background:var(--rosa)}
@@ -307,3 +307,18 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .acao:hover:active .disco,.acao:active .disco{transform:scale(.93)}
 .acao:hover:active .icone,.acao:active .icone{transform:scale(.88)}
 @media (prefers-reduced-motion:reduce){.acao:hover:active .disco,.acao:hover:active .icone{transform:none}}
+
+/* Resposta já enviada */
+.status{text-align:center;display:grid;justify-items:center;gap:calc(10*var(--s))}
+.st-selo{width:calc(150*var(--s));height:calc(150*var(--s));min-width:76px;min-height:76px;border-radius:50%;display:grid;place-items:center;border:calc(7*var(--s)) solid #f2949f;box-sizing:content-box;animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+.st-selo.ok{background:var(--rosa)}
+.st-selo.nao{background:var(--vinho);border-color:#d89ab4}
+.st-selo img{width:52%;height:auto}
+.st-selo svg{width:42%;height:42%}
+.status h3{margin-top:calc(14*var(--s));font-weight:600;font-size:max(20px,calc(46*var(--s)));letter-spacing:-.03em;color:var(--rosa);line-height:1.15}
+.st-nome{font-weight:600;font-size:max(15px,calc(32*var(--s)));color:var(--vinho)}
+.st-presente{font-size:max(13px,calc(27*var(--s)));color:#7a6571}
+.st-texto{font-size:max(13px,calc(26*var(--s)));color:#8a7380;max-width:calc(560*var(--s));min-width:240px}
+.st-acoes{display:grid;gap:calc(14*var(--s));width:100%;margin-top:calc(18*var(--s))}
+.st-acoes [hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.st-selo{animation:none}}

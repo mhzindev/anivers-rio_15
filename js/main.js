@@ -4,6 +4,7 @@
   document.querySelectorAll("[data-abrir]").forEach(function (botao) {
     botao.addEventListener("click", function () {
       var folha = document.getElementById("folha-" + botao.dataset.abrir);
+      if (botao.dataset.abrir === "confirmar" && window.__prepararConfirmar) window.__prepararConfirmar();
       if (folha && folha.showModal) folha.showModal();
     });
   });
@@ -261,10 +262,59 @@
     function irEtapa(n) {
       dlgConf.dataset.etapa = String(n);
       document.getElementById("passo2").className = n === 2 ? "on" : "";
-      document.getElementById("t-confirmar").textContent = n === 2 ? "Escolha como presentear" : "Confirmar presença";
-      document.getElementById("sub-confirmar").textContent = n === 2 ? "último passo para confirmar a sua presença" : "preencha seus dados para continuar";
+      var tit = { 1: "Confirmar presença", 2: "Escolha como presentear", status: "Sua resposta" };
+      var sub = { 1: "preencha seus dados para continuar", 2: "último passo para confirmar a sua presença", status: "você já respondeu a este convite" };
+      document.getElementById("t-confirmar").textContent = tit[n];
+      document.getElementById("sub-confirmar").textContent = sub[n];
       dlgConf.scrollTo(0, 0);
     }
+
+    // ---- Resposta já enviada neste aparelho (sem login: guardada no navegador) ----
+    var CHAVE = "convite-resposta";
+    function lerResposta() {
+      try { var v = JSON.parse(localStorage.getItem(CHAVE) || "null"); return v && typeof v.telefone === "string" ? v : null; } catch (e) { return null; }
+    }
+    function salvarResposta(r) { try { localStorage.setItem(CHAVE, JSON.stringify(r)); } catch (e) {} }
+    function resumoPresente(r) { return r && r.confirmado && r.presente ? "Presente: " + r.presente + (r.detalhe ? " · " + r.detalhe : "") : ""; }
+
+    function mostrarStatus(r) {
+      var sim = r.confirmado;
+      document.getElementById("st-selo").innerHTML = sim ? SELO_OK : SELO_NAO;
+      document.getElementById("st-selo").className = "st-selo " + (sim ? "ok" : "nao");
+      document.getElementById("st-titulo").textContent = sim ? "Você já aceitou o convite" : "Você rejeitou o convite";
+      document.getElementById("st-nome").textContent = r.nome;
+      var pres = resumoPresente(r);
+      document.getElementById("st-presente").textContent = pres;
+      document.getElementById("st-presente").hidden = !pres;
+      document.getElementById("st-texto").textContent = encerrado
+        ? "O prazo para alterar a resposta foi encerrado."
+        : sim ? "Mudou de ideia? Você pode alterar sua resposta até 25/10."
+              : "Mudou de ideia? Você pode confirmar sua presença até 25/10.";
+      document.getElementById("st-agenda").hidden = !sim;
+      document.getElementById("st-alterar").hidden = encerrado;
+      document.getElementById("st-alterar").textContent = sim ? "Alterar minha resposta" : "Mudei de ideia";
+      irEtapa("status");
+    }
+    // Chamada ao abrir o modal: quem já respondeu vê o status; os demais, o formulário.
+    window.__prepararConfirmar = function () {
+      var r = lerResposta();
+      if (r) { mostrarStatus(r); } else { irEtapa(1); }
+    };
+    document.getElementById("st-agenda").addEventListener("click", function () {
+      var r = lerResposta(); if (r) mostrarSucesso(false, null, resumoPresente(r));
+    });
+    document.getElementById("st-alterar").addEventListener("click", function () {
+      var r = lerResposta(); if (!r) { irEtapa(1); return; }
+      inNome.value = r.nome; inTel.value = formatarTelefone(r.telefone);
+      inNome.setAttribute("aria-invalid", "false"); inTel.setAttribute("aria-invalid", "false");
+      var radio = null;
+      if (r.confirmado && r.presente) {
+        if (r.outro) { radio = form.querySelector("input[value=__outro]"); textoOutro.value = r.presente; }
+        else radio = form.querySelector('input[name=presente][value="' + r.presente.replace(/"/g, "") + '"]');
+        if (radio) { radio.checked = true; campoOutro.hidden = !r.outro; }
+      }
+      irEtapa(1);
+    });
     document.getElementById("voltar-etapa").addEventListener("click", function () { irEtapa(1); });
     dlgConf.addEventListener("close", function () { irEtapa(1); });
 
@@ -337,6 +387,7 @@
           return r.json().catch(function () { return {}; }).then(function (e) { var err = new Error(e.message || r.status); err.codigo = e.message; throw err; });
         }
         setEnviando(false, botaoAcao);
+        salvarResposta({ nome: nome, telefone: telefone, confirmado: !rejeitar, presente: pres ? pres.presente : null, detalhe: pres && pres.detalhe ? pres.detalhe : null, outro: pres ? pres.outro : false, ts: Date.now() });
         form.reset();
         inNome.setAttribute("aria-invalid", "false");
         inTel.setAttribute("aria-invalid", "false");
