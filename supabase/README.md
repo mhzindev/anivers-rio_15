@@ -6,7 +6,8 @@ Projeto: `odlicsrhxcwtmyfgfyya` ("Karol's Project").
 
 - `public.rsvps` e `public.admins` têm **RLS ligada e forçada**; `anon` não tem nenhum privilégio nas tabelas.
 - Convidados (anon) só enviam respostas pela função `public.registrar_resposta(...)`, que valida nome, número,
-  presente e o prazo (25/10/2026 23:59:59, Brasília) e faz *upsert* pelo número (mesmo número = mesma pessoa).
+  presente e o prazo (25/10/2026 23:59:59, Brasília) e faz *upsert* por **nome + número** (nome sem acento/caixa/espaços extras; mesmo número com nomes diferentes = pessoas diferentes).
+- `public.consultar_resposta(nome, numero)` só devolve a resposta quando nome **e** número conferem (usada para não duplicar e para mostrar "você já respondeu").
 - Leitura de `rsvps` só para usuários **autenticados cujo e-mail está em `public.admins`** (política `admins leem respostas`).
 - A tabela `admins` não é legível por ninguém pela API.
 

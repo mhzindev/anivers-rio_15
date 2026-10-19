@@ -1,0 +1,9 @@
+-- Cópia da migração aplicada no projeto (identidade_por_nome_e_numero).
+-- Identidade da resposta = nome normalizado (sem acento/caixa/espaços extras) + número.
+-- create function public.chave_nome(t text) ... (immutable; translate(lower(...)))
+-- alter table public.rsvps add column nome_chave text generated always as (public.chave_nome(nome)) stored;
+-- alter table public.rsvps drop constraint rsvps_telefone_key;
+-- alter table public.rsvps add constraint rsvps_telefone_nome_key unique (telefone, nome_chave);
+-- registrar_resposta(...) agora faz upsert por (telefone, nome_chave).
+-- consultar_resposta(p_nome, p_telefone): security definer; devolve a linha só se nome E número conferem.
+-- Definições completas: ver as funções no projeto Supabase.
