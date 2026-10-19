@@ -302,31 +302,40 @@
       var telefone = soDigitos(inTel.value);
       if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
         retorno.className = "retorno erro";
-        retorno.textContent = "O envio ainda não está conectado ao banco de dados.";
+        retorno.textContent = "O envio não está configurado.";
         return;
       }
+      // A gravação passa só pela função segura registrar_resposta (valida tudo e respeita o prazo).
+      // Mesmo número = mesma pessoa: quem já confirmou pode desconfirmar (e vice-versa).
       var corpo = {
-        nome: nome,
-        telefone: telefone,
-        confirmado: !rejeitar,
-        presente: pres ? pres.presente : null,
-        presente_detalhe: pres && pres.detalhe ? pres.detalhe : null,
-        presente_outro: pres ? pres.outro : false
+        p_nome: nome,
+        p_telefone: telefone,
+        p_confirmado: !rejeitar,
+        p_presente: pres ? pres.presente : null,
+        p_detalhe: pres && pres.detalhe ? pres.detalhe : null,
+        p_outro: pres ? pres.outro : false
+      };
+      var MSG = {
+        prazo_encerrado: "O prazo para confirmar presença foi encerrado.",
+        nome_invalido: "Confira seu nome: use nome e sobrenome, só com letras.",
+        telefone_invalido: "Confira seu número: use DDD + número.",
+        presente_obrigatorio: "Escolha como você vai presentear.",
+        limite_atingido: "Não foi possível registrar agora. Fale com a família."
       };
       setEnviando(true, botaoAcao);
       retorno.textContent = "Enviando…";
-      // on_conflict + merge-duplicates: quem já confirmou pode desconfirmar (e vice-versa) com o mesmo número.
-      fetch(cfg.supabaseUrl + "/rest/v1/rsvps?on_conflict=telefone", {
+      fetch(cfg.supabaseUrl + "/rest/v1/rpc/registrar_resposta", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           apikey: cfg.supabaseAnonKey,
-          Authorization: "Bearer " + cfg.supabaseAnonKey,
-          Prefer: "resolution=merge-duplicates,return=minimal"
+          Authorization: "Bearer " + cfg.supabaseAnonKey
         },
         body: JSON.stringify(corpo)
       }).then(function (r) {
-        if (!r.ok) throw new Error(r.status);
+        if (!r.ok) {
+          return r.json().catch(function () { return {}; }).then(function (e) { var err = new Error(e.message || r.status); err.codigo = e.message; throw err; });
+        }
         setEnviando(false, botaoAcao);
         form.reset();
         inNome.setAttribute("aria-invalid", "false");
@@ -334,10 +343,17 @@
         retorno.textContent = "";
         campoOutro.hidden = true;
         mostrarSucesso(rejeitar, null, pres ? "Presente: " + pres.presente + (pres.detalhe ? " · " + pres.detalhe : "") : "");
-      }).catch(function () {
+      }).catch(function (err) {
         setEnviando(false, botaoAcao);
         retorno.className = "retorno erro";
-        retorno.textContent = "Não foi possível enviar agora. Tente novamente.";
+        retorno.textContent = MSG[err && err.codigo] || "Não foi possível enviar agora. Tente novamente.";
+        if (err && err.codigo === "prazo_encerrado") {
+          encerrado = true;
+          prazo.classList.add("encerrado");
+          formRsvp.classList.add("encerrado");
+          document.getElementById("prazo-tit").textContent = "O prazo para confirmar presença foi encerrado.";
+          irEtapa(1);
+        }
       });
     });
   }
