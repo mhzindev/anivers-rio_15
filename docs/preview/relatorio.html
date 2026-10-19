@@ -14,7 +14,7 @@ body{font:400 9.6pt/1.45 Poppins,sans-serif;color:var(--tinta)}
 .capa h1{font-size:19pt;font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .capa p{font-size:9.5pt;opacity:.92}
 .capa .sel{font-size:8.5pt;text-align:right;opacity:.95;white-space:nowrap}
-.exemplo{display:inline-block;margin:10px 0 0;font-size:8pt;font-weight:600;color:#8a5200;background:#fff3d6;border-radius:99px;padding:3px 10px}
+.exemplo{display:inline-block;margin:10px 0 4px;font-size:8pt;font-weight:600;color:#8a5200;background:#fff3d6;border-radius:99px;padding:3px 10px}
 .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 18px;margin:14px 2px 4px;font-size:8.8pt}
 .meta small{display:block;color:var(--tinta-3);font-size:7.8pt}
 h2{font-size:11.5pt;font-weight:600;color:var(--vinho);margin:18px 0 8px;letter-spacing:-.01em;break-after:avoid}
@@ -72,37 +72,6 @@ td.tel{font-variant-numeric:tabular-nums;color:var(--tinta-2);white-space:nowrap
 </section>
 <span class="exemplo">Dados de exemplo · pré-visualização do PDF</span>
 
-<div class="meta">
-  <div><small>Prazo para confirmar</small>25/10/2026 às 23h59</div>
-  <div><small>Situação do prazo</small>Faltam 6 dias</div>
-  <div><small>Última resposta</small>19/10/2026, 09:29</div>
-</div>
-
-<h2>Resumo</h2>
-<div class="kpis">
-  <div class="kpi"><div class="r">Respostas recebidas</div><div class="n">48</div><div class="c">pessoas diferentes</div></div>
-  <div class="kpi"><div class="r"><span class="dot" style="background:var(--rosa)"></span>Confirmaram</div><div class="n">39</div><div class="c">81% das respostas</div></div>
-  <div class="kpi"><div class="r"><span class="dot" style="background:var(--azul)"></span>Rejeitaram</div><div class="n">9</div><div class="c">19% das respostas</div></div>
-  <div class="kpi"><div class="r">Presentes escolhidos</div><div class="n">39</div><div class="c">4 em “Outro”</div></div>
-</div>
-
-<h2>Evolução e presentes</h2>
-<div class="duas">
-  <div class="box">
-    <h3>Respostas por dia</h3>
-    <div class="s">Últimos 10 dias</div>
-    <div class="leg"><span><span class="dot" style="background:var(--rosa)"></span>Confirmaram</span><span><span class="dot" style="background:var(--azul)"></span>Rejeitaram</span></div>
-    <div class="dias" id="dias"></div>
-    <div class="prop"><i style="width:81.25%;background:var(--rosa)"></i><i style="width:18.75%;background:var(--azul)"></i></div>
-  </div>
-  <div class="box">
-    <h3>Presentes escolhidos</h3>
-    <div class="s">Repetições são permitidas · mais escolhido primeiro</div>
-    <ul class="pres" id="pres"></ul>
-    <div class="chips"><span class="chip">Outro: Kit de maquiagem</span><span class="chip">Fone de ouvido</span><span class="chip">Livro + cartão</span><span class="chip">Vale-presente</span></div>
-  </div>
-</div>
-
 <h2>Quem confirmou <small id="n-sim"></small></h2>
 <table>
   <thead><tr><th>#</th><th>Nome</th><th>WhatsApp</th><th>Presente</th><th>Respondeu em</th></tr></thead>
@@ -117,13 +86,6 @@ td.tel{font-variant-numeric:tabular-nums;color:var(--tinta-2);white-space:nowrap
 <p class="nota">Dados fictícios, apenas para visualizar o layout. O relatório real traz as respostas registradas no momento da geração.</p>
 
 <script>
-var DIAS=[["09",3,0],["10",5,1],["11",8,2],["12",6,2],["13",4,1],["14",5,1],["15",3,1],["16",2,0],["17",2,1],["18",1,0]];
-document.getElementById('dias').innerHTML='<div class="eixo"><span>0</span><span>5</span><span>10</span></div>'+DIAS.map(function(d){
- var h=function(v){return (v/10*100)+'%'};
- return '<div class="dia"><div class="v">'+(d[1]+d[2])+'</div><div class="pilha"><div class="c" style="height:'+h(d[1])+'"></div>'+(d[2]?'<div class="r" style="height:'+h(d[2])+'"></div>':'')+'</div><label>'+d[0]+'/10</label></div>'}).join('');
-var PRES=[["Perfume ou creme de pele",9],["Roupa · 38 / M",7],["Sandália · 36 / 37",6],["Colar ou pulseira",5],["Anel · 18",4],["Outro presente",4],["Bolsa de lado",3],["Produtos de cabelo",1]];
-document.getElementById('pres').innerHTML=PRES.map(function(p){return '<li><span>'+p[0]+'</span><span class="b"><i style="width:'+(p[1]/9*100)+'%"></i></span><span class="v">'+p[1]+'</span></li>'}).join('');
-
 var N1=["Ana","Beatriz","Carlos","Daniela","Eduardo","Fernanda","Gustavo","Helena","Igor","Juliana","Lucas","Mariana","Natália","Otávio","Paula","Rafael","Sofia","Thiago","Vanessa","William"];
 var N2=["Lima","Rocha","Costa","Alves","Souza","Santos","Pereira","Martins","Ribeiro","Gomes","Ferreira","Araújo","Carvalho","Barbosa"];
 var G=["Perfume ou creme de pele","Roupa · 38 / M","Sandália · 36 / 37","Colar ou pulseira","Anel · 18","Bolsa de lado","Outro: Kit de maquiagem","Produtos de cabelo"];
