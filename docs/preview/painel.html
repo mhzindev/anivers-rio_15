@@ -89,10 +89,18 @@ body{overflow-x:hidden}
 .seg-ctrl{display:inline-flex;max-width:100%;background:var(--rosa-claro);border-radius:12px;padding:3px}
 .seg-ctrl button{flex:1;white-space:nowrap;border:0;background:none;font:600 13px Poppins;color:var(--tinta-2);padding:7px 14px;border-radius:9px;cursor:pointer}
 .seg-ctrl button[aria-pressed=true]{background:#fff;color:var(--vinho);box-shadow:0 1px 3px rgba(137,3,64,.15)}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{font-size:12px;font-weight:600;color:var(--tinta-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--linha);text-transform:none}
-td{padding:11px 10px;border-bottom:1px solid var(--grade);vertical-align:middle}
-tr:hover td{background:#fffafc}
+.tab-wrap{overflow:auto;border-radius:14px;box-shadow:inset 0 0 0 1px var(--linha);-webkit-overflow-scrolling:touch}
+.tab-wrap.aberta{max-height:520px}
+table{width:100%;min-width:720px;border-collapse:separate;border-spacing:0;font-size:14px}
+th{position:sticky;top:0;z-index:2;background:#fff}
+th.c-nome,td.c-nome{position:sticky;left:0;background:#fff;z-index:1}
+th.c-nome{z-index:3}
+td.c-nome::after,th.c-nome::after{content:"";position:absolute;top:0;right:-8px;bottom:0;width:8px;background:linear-gradient(90deg,rgba(137,3,64,.08),transparent);pointer-events:none;opacity:0;transition:opacity .15s}
+.tab-wrap.rolou td.c-nome::after,.tab-wrap.rolou th.c-nome::after{opacity:1}
+tbody tr:hover td{background:#fffafc}
+tbody tr:hover td.c-nome{background:#fffafc}
+th{font-size:12px;font-weight:600;color:var(--tinta-3);text-align:left;padding:10px;border-bottom:1px solid var(--linha);white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid var(--grade);vertical-align:middle;white-space:nowrap}
 .nome{font-weight:600}
 .tel{color:var(--tinta-2);font-variant-numeric:tabular-nums}
 .st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border-radius:99px;padding:4px 10px}
@@ -113,18 +121,6 @@ tr:hover td{background:#fffafc}
 @media (max-width:759px){
   .seg-ctrl{width:100%}.seg-ctrl button{padding:8px 4px;font-size:12px}
   .busca{min-width:0}
-  .tabela thead{display:none}
-  .tabela,.tabela tbody,.tabela tr,.tabela td{display:block;width:100%}
-  .tabela tr{padding:12px 0;border-bottom:1px solid var(--grade);display:grid;grid-template-columns:1fr auto;gap:4px 10px}
-  .tabela td{padding:0;border:0}
-  .tabela td.c-nome{grid-column:1}
-  .tabela td.c-st{grid-column:2;grid-row:1;justify-self:end}
-  .tabela td.c-tel{grid-column:1}
-  .tabela td.c-wa{grid-column:2;grid-row:2;justify-self:end}
-  .tabela td.c-pres,.tabela td.c-quando{grid-column:1/-1;font-size:13px;color:var(--tinta-2)}
-  .tabela td.c-pres::before{content:"Presente: ";color:var(--tinta-3)}
-  .tabela td.c-quando{color:var(--tinta-3)}
-  .tabela tr:hover td{background:none}
   .prazo .blocos{gap:18px}
 }
 </style>
@@ -195,12 +191,12 @@ tr:hover td{background:#fffafc}
       <button type="button" data-f="nao" aria-pressed="false">Rejeitaram <span id="n-nao">9</span></button>
     </div>
   </div>
-  <table class="tabela">
-    <thead><tr><th>Nome</th><th>WhatsApp</th><th></th><th>Status</th><th>Presente</th><th>Quando</th></tr></thead>
+  <div class="tab-wrap" id="wrap" tabindex="0" role="region" aria-label="Lista de respostas (role para ver mais)"><table class="tabela">
+    <thead><tr><th class="c-nome">Nome</th><th>WhatsApp</th><th></th><th>Status</th><th>Presente</th><th>Quando</th></tr></thead>
     <tbody id="linhas"></tbody>
-  </table>
+  </table></div>
   <p class="vazio" id="vazio">Nenhuma resposta encontrada.</p>
-  <div class="rodape-tab"><span id="cont">Mostrando 12 de 48</span><button class="btn claro" type="button">Ver todas</button></div>
+  <div class="rodape-tab"><span id="cont">Mostrando 12 de 48</span><button class="btn claro" type="button" id="ver-todas">Ver todas (48)</button></div>
 </section>
 
 </div>
@@ -209,20 +205,15 @@ tr:hover td{background:#fffafc}
 // ---- Dados de exemplo (fictícios) ----
 var DIAS=[["09/10",3,0],["10/10",5,1],["11/10",8,2],["12/10",6,2],["13/10",4,1],["14/10",5,1],["15/10",3,1],["16/10",2,0],["17/10",2,1],["18/10",1,0]];
 var PRES=[["Perfume ou creme de pele",9],["Roupa · 38 / M",7],["Sandália · 36 / 37",6],["Colar ou pulseira",5],["Anel · 18",4],["Outro presente",4],["Bolsa de lado",3],["Produtos de cabelo",1]];
-var R=[
- ["Ana Beatriz Lima","1234","sim","Perfume ou creme de pele","há 12 min"],
- ["Carlos Eduardo Rocha","5521","nao","—","há 1 h"],
- ["Mariana Costa","8870","sim","Sandália · aberta 36","há 2 h"],
- ["João Pedro Alves","3309","sim","Outro: Fone de ouvido","há 3 h"],
- ["Fernanda Oliveira","7742","sim","Roupa · 38 / M","há 5 h"],
- ["Rafael Santos","1096","nao","—","ontem"],
- ["Juliana Pereira","6453","sim","Colar ou pulseira","ontem"],
- ["Lucas Martins","9018","sim","Anel · 18","ontem"],
- ["Camila Ribeiro","2287","sim","Perfume ou creme de pele","ontem"],
- ["Pedro Henrique Souza","4460","nao","—","há 2 dias"],
- ["Larissa Gomes","7731","sim","Bolsa de lado","há 2 dias"],
- ["Gustavo Ferreira","1582","sim","Outro: Kit de maquiagem","há 2 dias"]];
-
+var N1=["Ana","Beatriz","Carlos","Daniela","Eduardo","Fernanda","Gustavo","Helena","Igor","Juliana","Lucas","Mariana","Natália","Otávio","Paula","Rafael","Sofia","Thiago","Vanessa","William"];
+var N2=["Lima","Rocha","Costa","Alves","Souza","Santos","Pereira","Martins","Ribeiro","Gomes","Ferreira","Araújo","Carvalho","Barbosa"];
+var G=["Perfume ou creme de pele","Roupa · 38 / M","Sandália · aberta 36","Colar ou pulseira","Anel · 18","Bolsa de lado","Outro: Kit de maquiagem","Produtos de cabelo"];
+var QUANDO=["há 12 min","há 1 h","há 2 h","há 3 h","há 5 h","ontem","ontem","ontem","há 2 dias","há 2 dias","há 3 dias","há 4 dias","há 5 dias","há 6 dias","há 7 dias"];
+var R=[];
+for(var i=0;i<48;i++){var nao=(i%5===1&&R.filter(function(r){return r[2]==='nao'}).length<9);
+  R.push([N1[(i*7)%N1.length]+" "+N2[(i*3+1)%N2.length],String(1000+((i*7919)%9000)),nao?"nao":"sim",nao?"—":G[(i*5)%G.length],QUANDO[Math.min(14,Math.floor(i*15/48))]])}
+var nn=R.filter(function(r){return r[2]==='nao'}).length; // garante 9 rejeições / 39 confirmações
+for(var k=R.length-1;nn<9&&k>=0;k--){if(R[k][2]==='sim'){R[k][2]='nao';R[k][3]='—';nn++}}
 // barras por dia
 var max=Math.max.apply(null,DIAS.map(function(d){return d[1]+d[2]}));
 document.getElementById('dias').innerHTML='<div class="eixo"><span>0</span><span>5</span><span>10</span></div>'+DIAS.map(function(d){
@@ -237,18 +228,29 @@ document.getElementById('pres').innerHTML=PRES.map(function(p){return '<li><span
 // tabela
 var ICO={sim:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.4 4.4L19 7.4"/></svg>',nao:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>'};
 var WA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.5L3 21l1.6-5.4A8.5 8.5 0 1 1 21 12z"/></svg>';
-var filtro='todos',termo='';
+var filtro='todos',termo='',aberta=false,LIMITE=10;
+var wrap=document.getElementById('wrap'),btn=document.getElementById('ver-todas');
 function render(){
   var rows=R.filter(function(r){return (filtro==='todos'||r[2]===filtro)&&(r[0]+' '+r[3]).toLowerCase().indexOf(termo)>-1});
-  document.getElementById('linhas').innerHTML=rows.map(function(r){
+  var filtrando=termo!==''||filtro!=='todos';
+  var mostra=(aberta||filtrando)?rows:rows.slice(0,LIMITE);
+  document.getElementById('linhas').innerHTML=mostra.map(function(r){
     return '<tr><td class="c-nome nome">'+r[0]+'</td><td class="c-tel tel">(99) 9••••-'+r[1]+'</td><td class="c-wa"><a class="wa" href="#" aria-label="Abrir WhatsApp de '+r[0]+'">'+WA+'</a></td>'+
     '<td class="c-st"><span class="st '+r[2]+'">'+ICO[r[2]]+(r[2]==='sim'?'Confirmou':'Rejeitou')+'</span></td><td class="c-pres">'+r[3]+'</td><td class="c-quando">'+r[4]+'</td></tr>'}).join('');
   document.getElementById('vazio').style.display=rows.length?'none':'block';
-  document.getElementById('cont').textContent='Mostrando '+rows.length+' de '+(filtro==='todos'?48:filtro==='sim'?39:9);
+  document.getElementById('cont').textContent='Mostrando '+mostra.length+' de '+rows.length+(filtrando?' resultados':'');
+  // botão: só existe quando há linhas escondidas (ou lista expandida para recolher)
+  var temMais=!filtrando&&rows.length>LIMITE;
+  btn.style.display=temMais?'':'none';
+  btn.textContent=aberta?'Mostrar menos':'Ver todas ('+rows.length+')';
+  btn.setAttribute('aria-expanded',aberta);
+  wrap.classList.toggle('aberta',aberta&&mostra.length>LIMITE);
 }
+btn.addEventListener('click',function(){aberta=!aberta;render();if(!aberta){wrap.scrollTop=0;document.getElementById('t-resp').scrollIntoView({behavior:'smooth',block:'start'})}});
+wrap.addEventListener('scroll',function(){wrap.classList.toggle('rolou',wrap.scrollLeft>2)});
 document.querySelectorAll('.seg-ctrl button').forEach(function(b){b.addEventListener('click',function(){
-  document.querySelectorAll('.seg-ctrl button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});filtro=b.dataset.f;render()})});
-document.getElementById('q').addEventListener('input',function(e){termo=e.target.value.trim().toLowerCase();render()});
+  document.querySelectorAll('.seg-ctrl button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});filtro=b.dataset.f;wrap.scrollTop=0;render()})});
+document.getElementById('q').addEventListener('input',function(e){termo=e.target.value.trim().toLowerCase();wrap.scrollTop=0;render()});
 render();
 </script>
 </body>
