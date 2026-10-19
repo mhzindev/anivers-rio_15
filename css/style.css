@@ -163,3 +163,25 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 @media (prefers-reduced-motion:reduce){
   .disco,.icone,.folha[open],.btn,.selo,.dica-copia{transition:none;animation:none}
 }
+
+/* Escolha de presente */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.escolha{border:0}
+.opcao{display:block;cursor:pointer}
+.opcao input{position:absolute;opacity:0;width:1px;height:1px}
+.opcao .item{box-shadow:inset 0 0 0 3px transparent;transition:box-shadow .15s ease,background .15s ease}
+.opcao:hover .item{background:#fdeaf2}
+.opcao input:focus-visible + .item{box-shadow:inset 0 0 0 3px #f6b3cc}
+.opcao input:checked + .item{background:#fff;box-shadow:inset 0 0 0 3px var(--rosa)}
+.marca{flex:none;width:calc(44*var(--s));height:calc(44*var(--s));border-radius:50%;box-shadow:inset 0 0 0 3px #f1b8cd;background:#fff;display:grid;place-items:center;transition:background .15s ease,box-shadow .15s ease}
+.opcao input:checked + .item .marca{background:var(--rosa);box-shadow:none}
+.opcao input:checked + .item .marca::after{content:"";width:34%;height:58%;margin-top:-8%;border:solid #fff;border-width:0 calc(4*var(--s)) calc(4*var(--s)) 0;transform:rotate(45deg)}
+.outro-campo{margin-top:calc(12*var(--s));padding:calc(20*var(--s)) calc(26*var(--s)) calc(26*var(--s));border-radius:calc(24*var(--s));background:#fff4f8;display:grid;gap:calc(10*var(--s))}
+.outro-campo[hidden]{display:none}
+.outro-campo label{font-weight:600;font-size:calc(28*var(--s));color:var(--vinho)}
+.outro-campo input{font:400 calc(32*var(--s))/1.2 "Poppins",sans-serif;color:var(--vinho);height:calc(88*var(--s));padding:0 calc(22*var(--s));border:3px solid #f36c96;border-radius:calc(16*var(--s));background:#fff;width:100%;outline:none}
+.outro-campo input:focus{border-color:var(--rosa);box-shadow:0 0 0 3px rgba(221,45,124,.18)}
+.rodape-fixo{position:sticky;bottom:calc(-56*var(--s));margin:calc(24*var(--s)) calc(-32*var(--s)) calc(-56*var(--s));padding:calc(20*var(--s)) calc(32*var(--s)) calc(40*var(--s));background:linear-gradient(to top,#fff 78%,rgba(255,255,255,0))}
+.rodape-fixo .retorno{min-height:0;margin-bottom:calc(10*var(--s))}
+.rodape-fixo .retorno:empty{display:none}
+.btn[disabled]{background:#f3dce6;color:#a98a99;box-shadow:none;cursor:not-allowed}
