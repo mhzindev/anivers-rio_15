@@ -6,9 +6,6 @@
 <title>Karoline · 15 anos</title>
 <meta name="description" content="Convite para os 15 anos da Karoline. Sábado, 14 de novembro de 2026, às 19h.">
 <meta name="theme-color" content="#ffffff">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -69,7 +66,7 @@
 
 <!-- Painéis -->
 <dialog class="folha" id="folha-presentes" aria-labelledby="t-presentes">
-  <form method="dialog" class="folha__topo"><h2 id="t-presentes">Sugestões de presentes</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-presentes">Sugestões de presentes</h2></form>
   <div class="folha__corpo">
     <ul class="lista">
       <li><b>Conteúdo em definição</b><span>As sugestões de presentes aparecerão aqui.</span></li>
@@ -78,7 +75,7 @@
 </dialog>
 
 <dialog class="folha" id="folha-requisitos" aria-labelledby="t-requisitos">
-  <form method="dialog" class="folha__topo"><h2 id="t-requisitos">Requisitos</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-requisitos">Requisitos</h2></form>
   <div class="folha__corpo">
     <ul class="lista">
       <li><b>Conteúdo em definição</b><span>Os requisitos do evento aparecerão aqui.</span></li>
@@ -87,29 +84,23 @@
 </dialog>
 
 <dialog class="folha" id="folha-confirmar" aria-labelledby="t-confirmar">
-  <form method="dialog" class="folha__topo"><h2 id="t-confirmar">Confirmar presença</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-confirmar">Confirmar presença</h2><p class="folha__sub">preencha os dados para confirmar a sua presença</p></form>
   <div class="folha__corpo">
     <form id="form-rsvp" class="campos" novalidate>
-      <label>Nome completo
+      <label>Nome
         <input name="nome" required autocomplete="name">
       </label>
       <label>Número (WhatsApp)
-        <input name="telefone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="(99) 99999-9999">
+        <input name="telefone" type="tel" inputmode="tel" required autocomplete="tel">
       </label>
-      <label>Quantidade de acompanhantes
-        <select name="acompanhantes" id="qtd-acompanhantes">
-          <option value="0">Nenhum</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-        </select>
-      </label>
-      <div id="nomes-acompanhantes" class="campos"></div>
-      <button class="botao" type="submit">Confirmar presença</button>
+      <button class="enviar" type="submit" aria-label="Confirmar presença"><img src="assets/icone-confirmar.webp" alt=""></button>
       <p class="retorno" id="retorno-rsvp" role="status" aria-live="polite"></p>
     </form>
   </div>
 </dialog>
 
 <dialog class="folha" id="folha-mapa" aria-labelledby="t-mapa">
-  <form method="dialog" class="folha__topo"><h2 id="t-mapa">Endereço no mapa</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-mapa">Endereço no mapa</h2></form>
   <div class="folha__corpo">
     <p class="local"><b>Chapéu de Palha</b><br><span id="endereco">R. Seis, 5, Imperatriz - MA, 65913-726</span></p>
     <iframe class="mapa" title="Mapa do local" loading="lazy" referrerpolicy="no-referrer-when-downgrade"

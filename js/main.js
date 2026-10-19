@@ -26,18 +26,6 @@
     });
   }
 
-  var qtd = document.getElementById("qtd-acompanhantes");
-  var nomesBox = document.getElementById("nomes-acompanhantes");
-  if (qtd) {
-    qtd.addEventListener("change", function () {
-      var n = parseInt(qtd.value, 10) || 0, html = "";
-      for (var i = 1; i <= n; i++) {
-        html += '<label>Nome do acompanhante ' + i + '<input name="acompanhante" required autocomplete="off"></label>';
-      }
-      nomesBox.innerHTML = html;
-    });
-  }
-
   var form = document.getElementById("form-rsvp");
   var retorno = document.getElementById("retorno-rsvp");
   if (form) {
@@ -47,10 +35,9 @@
       var d = new FormData(form);
       var nome = (d.get("nome") || "").trim();
       var telefone = (d.get("telefone") || "").trim();
-      var nomes = d.getAll("acompanhante").map(function (x) { return x.trim(); });
-      if (!nome || !telefone || nomes.some(function (x) { return !x; })) {
+      if (!nome || !telefone) {
         retorno.className = "retorno erro";
-        retorno.textContent = "Preencha seu nome, seu número e o nome de cada acompanhante.";
+        retorno.textContent = "Preencha seu nome e seu número.";
         return;
       }
       if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
@@ -60,9 +47,7 @@
       }
       var corpo = {
         nome: nome,
-        telefone: telefone,
-        acompanhantes: nomes.length,
-        nomes_acompanhantes: nomes
+        telefone: telefone
       };
       retorno.textContent = "Enviando…";
       fetch(cfg.supabaseUrl + "/rest/v1/rsvps", {
@@ -77,7 +62,6 @@
       }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
         form.reset();
-        nomesBox.innerHTML = "";
         retorno.textContent = "Obrigada! Sua resposta foi registrada.";
       }).catch(function () {
         retorno.className = "retorno erro";
