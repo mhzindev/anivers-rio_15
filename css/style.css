@@ -95,8 +95,6 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .lista li{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid rgba(221,45,124,.35);border-radius:12px}
 .lista b{font-weight:500;color:var(--vinho)}
 .lista span{font-size:14px}
-.pix{margin-top:20px;text-align:center}
-.pix__chave{font-size:22px;font-weight:600;color:var(--vinho);letter-spacing:.04em;margin:4px 0 12px}
 .botao{display:inline-block;border:0;border-radius:999px;background:var(--vinho);color:#fff;font:500 16px "Jost",sans-serif;padding:12px 24px;cursor:pointer}
 .botao:hover{background:var(--vinho-texto)}
 .info{display:grid;grid-template-columns:auto 1fr;gap:10px 16px}
@@ -114,3 +112,11 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 @media (prefers-reduced-motion:reduce){
   .disco,.icone,.folha[open]{transition:none;animation:none}
 }
+
+.local{margin-bottom:12px;line-height:1.4}
+.local b{color:var(--vinho);font-weight:500}
+.mapa{display:block;width:100%;height:240px;border:0;border-radius:12px;background:#f3e8ee}
+.botoes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.botao{text-decoration:none;text-align:center}
+.botao--claro{background:#fff;color:var(--vinho);box-shadow:inset 0 0 0 1.5px var(--vinho)}
+.botao--claro:hover{background:#fbe9f1}

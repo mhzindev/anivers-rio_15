@@ -15,12 +15,26 @@
     });
   });
 
-  var copiar = document.getElementById("copiar-pix");
-  if (copiar) {
-    copiar.addEventListener("click", function () {
-      var chave = document.getElementById("chave-pix").textContent.trim();
-      var ok = function () { copiar.textContent = "Chave copiada!"; setTimeout(function () { copiar.textContent = "Copiar chave Pix"; }, 2000); };
-      if (navigator.clipboard) navigator.clipboard.writeText(chave).then(ok, function () {});
+  function copiarTexto(botao, texto, rotulo) {
+    var ok = function () { botao.textContent = "Copiado!"; setTimeout(function () { botao.textContent = rotulo; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(texto).then(ok, function () {});
+  }
+  var copiarEnd = document.getElementById("copiar-endereco");
+  if (copiarEnd) {
+    copiarEnd.addEventListener("click", function () {
+      copiarTexto(copiarEnd, "Chapéu de Palha, " + document.getElementById("endereco").textContent.trim(), "Copiar endereço");
+    });
+  }
+
+  var qtd = document.getElementById("qtd-acompanhantes");
+  var nomesBox = document.getElementById("nomes-acompanhantes");
+  if (qtd) {
+    qtd.addEventListener("change", function () {
+      var n = parseInt(qtd.value, 10) || 0, html = "";
+      for (var i = 1; i <= n; i++) {
+        html += '<label>Nome do acompanhante ' + i + '<input name="acompanhante" required autocomplete="off"></label>';
+      }
+      nomesBox.innerHTML = html;
     });
   }
 
@@ -32,9 +46,11 @@
       retorno.className = "retorno";
       var d = new FormData(form);
       var nome = (d.get("nome") || "").trim();
-      if (!nome) {
+      var telefone = (d.get("telefone") || "").trim();
+      var nomes = d.getAll("acompanhante").map(function (x) { return x.trim(); });
+      if (!nome || !telefone || nomes.some(function (x) { return !x; })) {
         retorno.className = "retorno erro";
-        retorno.textContent = "Informe seu nome completo.";
+        retorno.textContent = "Preencha seu nome, seu número e o nome de cada acompanhante.";
         return;
       }
       if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
@@ -44,10 +60,9 @@
       }
       var corpo = {
         nome: nome,
-        confirmado: d.get("confirmado") === "true",
-        acompanhantes: parseInt(d.get("acompanhantes"), 10) || 0,
-        restricoes: (d.get("restricoes") || "").trim() || null,
-        mensagem: (d.get("mensagem") || "").trim() || null
+        telefone: telefone,
+        acompanhantes: nomes.length,
+        nomes_acompanhantes: nomes
       };
       retorno.textContent = "Enviando…";
       fetch(cfg.supabaseUrl + "/rest/v1/rsvps", {
@@ -62,6 +77,7 @@
       }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
         form.reset();
+        nomesBox.innerHTML = "";
         retorno.textContent = "Obrigada! Sua resposta foi registrada.";
       }).catch(function () {
         retorno.className = "retorno erro";
