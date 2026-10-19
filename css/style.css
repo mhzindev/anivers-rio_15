@@ -322,3 +322,7 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .st-acoes{display:grid;gap:calc(14*var(--s));width:100%;margin-top:calc(18*var(--s))}
 .st-acoes [hidden]{display:none}
 @media (prefers-reduced-motion:reduce){.st-selo{animation:none}}
+
+.campos input[readonly]{background:#fff4f8;color:#7a6571;border-color:#f6b3cc}
+.dica-edicao{font-size:max(12px,calc(25*var(--s)));color:#8a7380;text-align:center;margin-top:calc(-20*var(--s))}
+.dica-edicao[hidden]{display:none}

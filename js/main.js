@@ -246,6 +246,7 @@
     });
     inNome.addEventListener("blur", function () {
       inNome.value = limparNome(inNome.value);
+      if (!inNome.readOnly && inNome.value) inNome.value = titulo(inNome.value);
       if (inNome.value) mostrarErro(inNome, validarNome(inNome.value));
     });
     inTel.addEventListener("blur", function () {
@@ -267,6 +268,33 @@
       document.getElementById("t-confirmar").textContent = tit[n];
       document.getElementById("sub-confirmar").textContent = sub[n];
       dlgConf.scrollTo(0, 0);
+    }
+
+    var editando = false; // true quando a pessoa escolheu "Alterar minha resposta" (identidade já confirmada)
+    function titulo(n) {
+      var PART = { da: 1, de: 1, do: 1, das: 1, dos: 1, e: 1 };
+      return n.split(" ").map(function (p, i) {
+        var l = p.toLocaleLowerCase("pt-BR");
+        return (i > 0 && PART[l]) ? l : l.charAt(0).toLocaleUpperCase("pt-BR") + l.slice(1);
+      }).join(" ");
+    }
+    // Consulta no servidor (nome + número): devolve a resposta já registrada ou null.
+    function consultarResposta(nome, telefone) {
+      return fetch(cfg.supabaseUrl + "/rest/v1/rpc/consultar_resposta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", apikey: cfg.supabaseAnonKey, Authorization: "Bearer " + cfg.supabaseAnonKey },
+        body: JSON.stringify({ p_nome: nome, p_telefone: telefone })
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      }).then(function (rows) {
+        var x = rows && rows[0];
+        return x ? { nome: x.nome, telefone: telefone, confirmado: x.confirmado, presente: x.presente || null, detalhe: x.presente_detalhe || null, outro: !!x.presente_outro, ts: Date.now() } : null;
+      });
+    }
+    function travarIdentidade(sim) {
+      inNome.readOnly = sim; inTel.readOnly = sim;
+      document.getElementById("dica-edicao").hidden = !sim;
     }
 
     // ---- Resposta já enviada neste aparelho (sem login: guardada no navegador) ----
@@ -298,13 +326,21 @@
     // Chamada ao abrir o modal: quem já respondeu vê o status; os demais, o formulário.
     window.__prepararConfirmar = function () {
       var r = lerResposta();
-      if (r) { mostrarStatus(r); } else { irEtapa(1); }
+      if (!r) { irEtapa(1); return; }
+      mostrarStatus(r);
+      // Confere no servidor (nome + número): a resposta pode ter mudado ou sido removida.
+      if (cfg.supabaseUrl) consultarResposta(r.nome, r.telefone).then(function (s) {
+        if (!dlgConf.open) return;
+        if (!s) { try { localStorage.removeItem(CHAVE); } catch (e) {} irEtapa(1); return; }
+        if (s.confirmado !== r.confirmado || s.presente !== r.presente || s.detalhe !== r.detalhe) { salvarResposta(s); mostrarStatus(s); }
+      }).catch(function () {});
     };
     document.getElementById("st-agenda").addEventListener("click", function () {
       var r = lerResposta(); if (r) mostrarSucesso(false, null, resumoPresente(r));
     });
     document.getElementById("st-alterar").addEventListener("click", function () {
       var r = lerResposta(); if (!r) { irEtapa(1); return; }
+      editando = true; travarIdentidade(true);
       inNome.value = r.nome; inTel.value = formatarTelefone(r.telefone);
       inNome.setAttribute("aria-invalid", "false"); inTel.setAttribute("aria-invalid", "false");
       var radio = null;
@@ -316,7 +352,7 @@
       irEtapa(1);
     });
     document.getElementById("voltar-etapa").addEventListener("click", function () { irEtapa(1); });
-    dlgConf.addEventListener("close", function () { irEtapa(1); });
+    dlgConf.addEventListener("close", function () { irEtapa(1); editando = false; travarIdentidade(false); });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -328,7 +364,7 @@
       var botaoAcao = acao === "confirmar" ? form.querySelector(".so-etapa2 .btn--sim") : e.submitter;
       retorno.className = "retorno";
       retorno.textContent = "";
-      var nome = limparNome(inNome.value);
+      var nome = titulo(limparNome(inNome.value));
       var okNome = mostrarErro(inNome, validarNome(nome));
       var okTel = mostrarErro(inTel, validarTelefone(inTel.value));
       if (!okNome || !okTel) {
@@ -336,6 +372,8 @@
         (okNome ? inTel : inNome).focus();
         return;
       }
+      var telefoneConsulta = soDigitos(inTel.value);
+      function seguir() {
       if (acao === "avancar") {
         document.getElementById("resumo-etapa2").textContent = "Olá, " + nome.split(" ")[0] + "! Selecione uma sugestão ou conte o seu presente em “Outro”.";
         mostrarErroPresente("");
@@ -387,6 +425,7 @@
           return r.json().catch(function () { return {}; }).then(function (e) { var err = new Error(e.message || r.status); err.codigo = e.message; throw err; });
         }
         setEnviando(false, botaoAcao);
+        editando = false; travarIdentidade(false);
         salvarResposta({ nome: nome, telefone: telefone, confirmado: !rejeitar, presente: pres ? pres.presente : null, detalhe: pres && pres.detalhe ? pres.detalhe : null, outro: pres ? pres.outro : false, ts: Date.now() });
         form.reset();
         inNome.setAttribute("aria-invalid", "false");
@@ -406,6 +445,19 @@
           irEtapa(1);
         }
       });
+      }
+      // Nome + número já têm resposta? Então mostra o status em vez de duplicar (falha de rede: segue normalmente,
+      // pois o banco também impede duplicidade).
+      if (!editando && (acao === "avancar" || acao === "rejeitar") && cfg.supabaseUrl) {
+        setEnviando(true, botaoAcao);
+        consultarResposta(nome, telefoneConsulta).then(function (r) {
+          setEnviando(false, botaoAcao);
+          if (r) { salvarResposta(r); form.reset(); inNome.value = ""; inTel.value = ""; mostrarStatus(r); return; }
+          seguir();
+        }, function () { setEnviando(false, botaoAcao); seguir(); });
+        return;
+      }
+      seguir();
     });
   }
 
