@@ -1,0 +1,33 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Aniversario Karoline//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:15 anos da Karoline
+BEGIN:VEVENT
+UID:karoline-15-anos-20261114@aniversario15
+DTSTAMP:20261019T000000Z
+DTSTART:20261114T220000Z
+DTEND:20261115T030000Z
+SUMMARY:15 anos da Karoline
+LOCATION:Chapéu de Palha\, R. Seis\, 5\, Imperatriz - MA\, 65913-726
+DESCRIPTION:Neste dia especial, sua presença é mais que importante!\n\nCh
+ apéu de Palha\nR. Seis\, 5\, Imperatriz - MA\, 65913-726\nMapa: https://w
+ ww.google.com/maps/search/?api=1&query=Chap%C3%A9u+de+Palha+R.+Seis%2C+5%2
+ C+Imperatriz+-+MA%2C+65913-726
+URL:https://www.google.com/maps/search/?api=1&query=Chap%C3%A9u+de+Palha+R.
+ +Seis%2C+5%2C+Imperatriz+-+MA%2C+65913-726
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Amanhã: 15 anos da Karoline, 19h00
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Hoje às 19h00: 15 anos da Karoline
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

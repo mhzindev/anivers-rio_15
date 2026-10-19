@@ -250,3 +250,25 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .folha__topo{touch-action:none;cursor:grab}
 .folha.arrastando,.folha.arrastando .folha__topo{cursor:grabbing;user-select:none;-webkit-user-select:none}
 .folha{overscroll-behavior:contain}
+
+/* Adicionar à agenda (tela de confirmação) */
+.agenda{margin-top:calc(46*var(--s));text-align:left}
+.agenda[hidden]{display:none}
+.agenda__card{display:flex;align-items:center;gap:calc(24*var(--s));padding:calc(22*var(--s)) calc(26*var(--s));border-radius:calc(24*var(--s));background:#fff4f8}
+.agenda__data{flex:none;width:calc(104*var(--s));min-width:52px;border-radius:calc(18*var(--s));overflow:hidden;background:#fff;box-shadow:inset 0 0 0 2px #f6b3cc;text-align:center}
+.agenda__data span{display:block;background:var(--rosa);color:#fff;font-weight:600;font-size:max(11px,calc(22*var(--s)));letter-spacing:.08em;padding:calc(6*var(--s)) 0}
+.agenda__data b{display:block;font-weight:600;font-size:max(22px,calc(50*var(--s)));line-height:1.25;color:var(--vinho)}
+.agenda__txt h3{font-weight:600;font-size:max(15px,calc(32*var(--s)));letter-spacing:-.02em;color:var(--vinho);margin-bottom:2px}
+.agenda__txt p{font-size:max(12px,calc(25*var(--s)));line-height:1.4;color:#7a6571}
+.agenda__acoes{display:grid;gap:calc(14*var(--s));margin-top:calc(22*var(--s))}
+.agenda__acoes .btn{text-decoration:none}
+.agenda__acoes .btn[hidden],.agenda__outro[hidden]{display:none}
+.agenda__acoes .btn.secundario{background:#fff4f8;color:var(--vinho);box-shadow:none}
+.agenda__acoes .btn.secundario:hover{background:#fde6ef}
+.agenda__outro,.agenda__fechar{justify-self:center;border:0;background:none;font:500 max(13px,calc(27*var(--s))) "Poppins",sans-serif;color:var(--vinho);padding:calc(10*var(--s)) calc(20*var(--s));cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#f6b3cc}
+.agenda__fechar{text-decoration:none;color:#8a7380}
+.agenda__aviso{min-height:0;text-align:center;font-size:max(12px,calc(25*var(--s)));color:var(--vinho)}
+.agenda__aviso:empty{display:none}
+.folha--sucesso.com-agenda{min-height:0}
+.folha--sucesso.com-agenda h2{margin-top:calc(60*var(--s))}
+.folha--sucesso.com-agenda .selo{margin-top:calc(46*var(--s));width:calc(190*var(--s));height:calc(190*var(--s));border-width:calc(8*var(--s))}

@@ -46,6 +46,37 @@
     });
   }
 
+  // ---- Adicionar à agenda ----
+  // iPhone/Mac: .ics abre direto o Calendário. Demais: link do Google Agenda. A outra opção fica em "Usar outro calendário".
+  function prepararAgenda() {
+    var apple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+    var ics = document.getElementById("ag-ics"), goo = document.getElementById("ag-google");
+    var prim = apple ? ics : goo, alt = apple ? goo : ics;
+    prim.hidden = false; prim.classList.remove("secundario");
+    alt.hidden = true; alt.classList.add("secundario");
+    document.getElementById("ag-outro").hidden = false;
+    document.getElementById("ag-aviso").textContent = "";
+  }
+  var agOutro = document.getElementById("ag-outro");
+  if (agOutro) {
+    agOutro.addEventListener("click", function () {
+      var ics = document.getElementById("ag-ics"), goo = document.getElementById("ag-google");
+      (ics.hidden ? ics : goo).hidden = false;
+      var alt = ics.classList.contains("secundario") ? ics : goo;
+      alt.querySelector("span").textContent = alt === ics ? "Baixar arquivo .ics (Apple, Outlook)" : "Abrir no Google Agenda";
+      agOutro.hidden = true;
+    });
+    document.getElementById("ag-ics").addEventListener("click", function () {
+      document.getElementById("ag-aviso").textContent = "Toque no arquivo baixado para adicionar o evento à agenda.";
+    });
+    document.getElementById("ag-google").addEventListener("click", function () {
+      document.getElementById("ag-aviso").textContent = "Abrindo o Google Agenda…";
+    });
+    document.getElementById("ag-fechar").addEventListener("click", function () {
+      window.fecharFolha(document.getElementById("folha-sucesso"));
+    });
+  }
+
   var SELO_OK = '<img src="assets/icone-confirmar.webp" alt="">';
   var SELO_NAO = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   function mostrarSucesso(rejeitou, titulo, sub) {
@@ -59,6 +90,9 @@
     subEl.textContent = sub || "";
     subEl.hidden = !sub;
     document.getElementById("selo").innerHTML = rejeitou ? SELO_NAO : SELO_OK;
+    document.getElementById("agenda").hidden = !!rejeitou;
+    ok.classList.toggle("com-agenda", !rejeitou);
+    if (!rejeitou) prepararAgenda();
     if (!ok.open) ok.showModal();
   }
   // Pré-visualização das telas: index.html#confirmado ou #rejeitado
