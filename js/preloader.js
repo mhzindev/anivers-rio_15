@@ -2,11 +2,10 @@
   var pre = document.getElementById("preloader");
   if (!pre) return;
 
-  // Sem intro em pré-visualizações (#confirmado...), com ?intro=0, ou se já foi vista nesta sessão.
+  // A assinatura aparece a cada carregamento (inclusive ao atualizar a página).
+  // Só é pulada em pré-visualizações de telas (#confirmado...) ou com ?intro=0.
   var pular = /[?&]intro=0\b/.test(location.search) || location.hash.length > 1;
-  try { if (sessionStorage.getItem("intro-vista")) pular = true; } catch (e) {}
   if (pular) { pre.remove(); return; }
-  try { sessionStorage.setItem("intro-vista", "1"); } catch (e) {}
 
   var alvo = document.getElementById("assinatura");
   var reduzido = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
