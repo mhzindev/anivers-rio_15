@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Karoline · 15 anos</title>
 <meta name="description" content="Convite para os 15 anos da Karoline. Sábado, 14 de novembro de 2026, às 19h.">
 <meta name="theme-color" content="#ffffff">
@@ -118,11 +118,11 @@
     </div>
     <form id="form-rsvp" class="campos" novalidate>
       <label class="so-etapa1">Nome completo
-        <input name="nome" required autocomplete="name" maxlength="80" placeholder="Nome e sobrenome" aria-describedby="erro-nome">
+        <input name="nome" required autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" maxlength="80" placeholder="Nome e sobrenome" aria-describedby="erro-nome">
         <span class="erro-campo" id="erro-nome"></span>
       </label>
       <label class="so-etapa1">Número (WhatsApp)
-        <input name="telefone" type="tel" inputmode="numeric" required autocomplete="tel-national" maxlength="15" placeholder="(99) 99999-9999" aria-describedby="erro-telefone">
+        <input name="telefone" type="tel" inputmode="numeric" required autocomplete="tel-national" enterkeyhint="next" maxlength="15" placeholder="(99) 99999-9999" aria-describedby="erro-telefone">
         <span class="erro-campo" id="erro-telefone"></span>
       </label>
       <fieldset class="escolha escolha--form so-etapa2"><legend class="sr">Escolha como presentear</legend>
@@ -136,7 +136,7 @@
       <li><label class="opcao"><input type="radio" name="presente" value="Roupa" data-detalhe="Tamanho 38 / M"><span class="item"><span class="item__icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4L3 7l2 4 3-1.2V20h8V9.8L19 11l2-4-5.5-3a3.5 3.5 0 0 1-7 0z"/></svg></span><span class="item__txt"><b>Roupa</b></span><span class="chips"><span class="chip">Tam. 38 / M</span></span><span class="marca" aria-hidden="true"></span></span></label></li>
       <li><label class="opcao"><input type="radio" name="presente" value="Sandália" data-detalhe="Aberta 36 · Fechada 37"><span class="item"><span class="item__icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 20V9.8C2.6 7.8 3.6 6 4.8 4.5l8 3.7-.2 3.6-3.4 3.2"/><path d="M2.5 20h3.7v-4.8c2.4.6 3.4 2.8 5 4.2.8.7 1.8.7 2.8.6l7.5-1.2v-2.4l-7.7 1c-2.3-.9-4.3-3.2-7-3.6"/><path d="M14 17.3l2-3h3.8v1.7"/><path d="M2.5 9.8c4 .2 6 2.6 7 4.6"/></svg></span><span class="item__txt"><b>Sandália</b></span><span class="chips"><span class="chip">Aberta 36</span><span class="chip">Fechada 37</span></span><span class="marca" aria-hidden="true"></span></span></label></li>
       <li class="opcao-outro"><label class="opcao"><input type="radio" name="presente" value="__outro"><span class="item"><span class="item__icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/></svg></span><span class="item__txt"><b>Outro presente</b><span>Tem outra ideia? Conte pra gente.</span></span><span class="marca" aria-hidden="true"></span></span></label>
-        <div class="outro-campo" id="outro-campo" hidden><label for="outro-texto">Qual presente você vai dar?</label><input id="outro-texto" maxlength="80" autocomplete="off" placeholder="Escreva aqui"></div></li>
+        <div class="outro-campo" id="outro-campo" hidden><label for="outro-texto">Qual presente você vai dar?</label><input id="outro-texto" maxlength="80" autocomplete="off" enterkeyhint="done" placeholder="Escreva aqui"></div></li>
       </ul>
       <span class="erro-campo" id="erro-presente" role="alert"></span></fieldset>
       <div class="decisao so-etapa1">

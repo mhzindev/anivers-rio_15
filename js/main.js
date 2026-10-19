@@ -93,6 +93,32 @@
   atualizarPrazo();
 
   // ---- Validação e formatação do RSVP ----
+  // ---- Teclado virtual ----
+  // iOS e Chrome (Android) não redimensionam o layout com o teclado aberto: medimos a área visível
+  // e levantamos o painel acima do teclado. Em navegadores que redimensionam, a diferença é 0.
+  var vv = window.visualViewport;
+  if (vv) {
+    var raiz = document.documentElement;
+    var ajustarTeclado = function () {
+      var kb = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+      if (kb > 80) {
+        raiz.style.setProperty("--teclado", kb + "px");
+        raiz.style.setProperty("--vvh", Math.round(vv.height) + "px");
+      } else {
+        raiz.style.removeProperty("--teclado");
+        raiz.style.removeProperty("--vvh");
+      }
+    };
+    vv.addEventListener("resize", ajustarTeclado);
+    vv.addEventListener("scroll", ajustarTeclado);
+  }
+  // Ao focar um campo dentro de um painel, garante que ele fique visível acima do teclado.
+  document.addEventListener("focusin", function (e) {
+    var el = e.target;
+    if (!el.closest || !el.closest("dialog.folha") || !el.matches("input, textarea, select")) return;
+    setTimeout(function () { el.scrollIntoView({ block: "center", behavior: "smooth" }); }, 300);
+  });
+
   var form = document.getElementById("form-rsvp");
   var retorno = document.getElementById("retorno-rsvp");
 
@@ -212,7 +238,10 @@
       e.preventDefault();
       if (encerrado) return;
       var acao = e.submitter ? e.submitter.value : "avancar";
+      // Enter no campo "Outro" (etapa 2) é envio implícito: o botão padrão do form é o da etapa 1.
+      if (dlgConf.dataset.etapa === "2" && acao !== "confirmar") acao = "confirmar";
       var rejeitar = acao === "rejeitar";
+      var botaoAcao = acao === "confirmar" ? form.querySelector(".so-etapa2 .btn--sim") : e.submitter;
       retorno.className = "retorno";
       retorno.textContent = "";
       var nome = limparNome(inNome.value);
@@ -250,7 +279,7 @@
         presente_detalhe: pres && pres.detalhe ? pres.detalhe : null,
         presente_outro: pres ? pres.outro : false
       };
-      setEnviando(true, e.submitter);
+      setEnviando(true, botaoAcao);
       retorno.textContent = "Enviando…";
       // on_conflict + merge-duplicates: quem já confirmou pode desconfirmar (e vice-versa) com o mesmo número.
       fetch(cfg.supabaseUrl + "/rest/v1/rsvps?on_conflict=telefone", {
@@ -264,7 +293,7 @@
         body: JSON.stringify(corpo)
       }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
-        setEnviando(false, e.submitter);
+        setEnviando(false, botaoAcao);
         form.reset();
         inNome.setAttribute("aria-invalid", "false");
         inTel.setAttribute("aria-invalid", "false");
@@ -272,7 +301,7 @@
         campoOutro.hidden = true;
         mostrarSucesso(rejeitar, null, pres ? "Presente: " + pres.presente + (pres.detalhe ? " · " + pres.detalhe : "") : "");
       }).catch(function () {
-        setEnviando(false, e.submitter);
+        setEnviando(false, botaoAcao);
         retorno.className = "retorno erro";
         retorno.textContent = "Não foi possível enviar agora. Tente novamente.";
       });
