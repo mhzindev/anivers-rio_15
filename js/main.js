@@ -192,6 +192,12 @@
     });
 
     var dlgConf = document.getElementById("folha-confirmar");
+    // Desabilita os botões durante o envio (evita toque duplo) e mostra o spinner no botão acionado.
+    function setEnviando(sim, botao) {
+      form.setAttribute("aria-busy", sim ? "true" : "false");
+      form.querySelectorAll("button").forEach(function (b) { b.disabled = sim; });
+      if (botao) botao.classList.toggle("carregando", sim);
+    }
     function irEtapa(n) {
       dlgConf.dataset.etapa = String(n);
       document.getElementById("passo2").className = n === 2 ? "on" : "";
@@ -244,6 +250,7 @@
         presente_detalhe: pres && pres.detalhe ? pres.detalhe : null,
         presente_outro: pres ? pres.outro : false
       };
+      setEnviando(true, e.submitter);
       retorno.textContent = "Enviando…";
       // on_conflict + merge-duplicates: quem já confirmou pode desconfirmar (e vice-versa) com o mesmo número.
       fetch(cfg.supabaseUrl + "/rest/v1/rsvps?on_conflict=telefone", {
@@ -257,6 +264,7 @@
         body: JSON.stringify(corpo)
       }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
+        setEnviando(false, e.submitter);
         form.reset();
         inNome.setAttribute("aria-invalid", "false");
         inTel.setAttribute("aria-invalid", "false");
@@ -264,6 +272,7 @@
         campoOutro.hidden = true;
         mostrarSucesso(rejeitar, null, pres ? "Presente: " + pres.presente + (pres.detalhe ? " · " + pres.detalhe : "") : "");
       }).catch(function () {
+        setEnviando(false, e.submitter);
         retorno.className = "retorno erro";
         retorno.textContent = "Não foi possível enviar agora. Tente novamente.";
       });
