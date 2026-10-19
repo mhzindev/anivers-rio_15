@@ -16,11 +16,11 @@ html,body{min-height:100%;background:var(--papel)}
 body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--vinho-texto);-webkit-text-size-adjust:100%}
 
 /* Palco: composição 810×1440 (9:16) escalada pela largura disponível */
-.palco{min-height:100dvh;display:grid;place-items:center;background:var(--papel)}
+.palco{min-height:100vh;min-height:100dvh;display:grid;place-items:center;background:var(--papel)}
 .convite{
   position:relative;overflow:hidden;container-type:size;
   --larg:min(100vw,calc(100dvh * 9 / 16));
-  width:var(--larg);height:100dvh;
+  width:var(--larg);height:100vh;height:100dvh;
   --u:calc(100cqw / 810);
   background:var(--papel);
 }
@@ -81,7 +81,7 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 
 /* Painéis (bottom sheet) — medidas em unidades da composição 810 */
 .folha{
-  --w:min(100vw,520px);--s:calc(var(--w) / 810);
+  --w:clamp(min(100vw,320px),min(100vw,calc(100dvh * 9 / 16)),560px);--s:calc(var(--w) / 810);
   margin:auto auto 0;width:var(--w);max-width:100vw;max-height:92dvh;border:0;overflow:auto;
   border-radius:calc(60*var(--s)) calc(60*var(--s)) 0 0;
   background:#fff;color:var(--rosa);font-family:"Poppins",system-ui,sans-serif;
@@ -216,3 +216,18 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 @media (prefers-reduced-motion:reduce){.btn.carregando::after{animation-duration:2s}}
 .btn--sim.carregando[disabled]{background:var(--rosa);color:transparent;box-shadow:0 10px 22px rgba(221,45,124,.28)}
 .btn--nao.carregando[disabled]{background:#fff4f8;color:transparent}
+
+/* Telas largas: o convite vira uma "página" centralizada sobre um fundo suave */
+@media (min-width:640px) and (min-aspect-ratio:3/4){
+  html,body{background:radial-gradient(120% 90% at 50% 0%,#fff 0%,#fbeaf1 60%,#f5d9e5 100%) fixed}
+  .convite{box-shadow:0 24px 70px rgba(137,3,64,.18),0 2px 0 rgba(221,45,124,.08);border-radius:clamp(0px,2.5vw,32px);height:min(100dvh - 32px,100vh - 32px)}
+  .palco{padding:16px 0;background:transparent}
+  .folha{--w:clamp(320px,calc((100dvh - 32px) * 9 / 16),560px)}
+  .convite{--larg:min(100vw,calc((100dvh - 32px) * 9 / 16))}
+}
+
+/* Celular deitado: não cabe a composição inteira na altura; usa largura fixa e rola na vertical */
+@media (max-height:500px) and (orientation:landscape){
+  .palco{place-items:start center;padding:0}
+  .convite{--larg:min(100vw,420px);width:var(--larg);height:auto;aspect-ratio:9/16;border-radius:0;box-shadow:none}
+}
