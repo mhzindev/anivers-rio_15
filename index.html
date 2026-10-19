@@ -114,8 +114,16 @@
         <input name="telefone" type="tel" inputmode="numeric" required autocomplete="tel-national" maxlength="15" placeholder="(99) 99999-9999" aria-describedby="erro-telefone">
         <span class="erro-campo" id="erro-telefone"></span>
       </label>
-      <button class="enviar" type="submit" name="acao" value="confirmar" aria-label="Confirmar presença"><img src="assets/icone-confirmar.webp" alt=""></button>
-      <button class="rejeitar" type="submit" name="acao" value="rejeitar" formnovalidate>Rejeitar convite</button>
+      <div class="decisao">
+        <button class="btn btn--sim" type="submit" name="acao" value="confirmar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.8l4.4 4.4L19 7.4"/></svg>
+          Confirmar presença
+        </button>
+        <button class="btn btn--nao" type="submit" name="acao" value="rejeitar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
+          Rejeitar convite
+        </button>
+      </div>
       <p class="retorno" id="retorno-rsvp" role="status" aria-live="polite"></p>
     </form>
   </div>
