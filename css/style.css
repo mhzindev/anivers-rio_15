@@ -88,7 +88,7 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
   padding:calc(40*var(--s)) calc(32*var(--s)) calc(56*var(--s));
   box-shadow:0 -10px 40px rgba(137,3,64,.12);
 }
-.folha::backdrop{background:rgba(235,235,235,calc(.9 * var(--fade, 1)))}
+.folha::backdrop{background:rgba(235,235,235,calc(.9 * var(--fade, 1)));transition:background .26s ease}
 .folha[open]{animation:sobe .3s ease}
 @keyframes sobe{from{transform:translateY(24px);opacity:0}}
 .folha__topo{display:grid;justify-items:center;text-align:center}

@@ -5,6 +5,23 @@
   var VELOCIDADE = 0.55; // px/ms (gesto rápido também fecha)
   var reduzido = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Fecha com a animação do painel descendo (barra, toque fora e Esc usam o mesmo caminho).
+  window.fecharFolha = function (folha) {
+    if (!folha.open || folha._fechando) return;
+    if (reduzido) { folha.close(); return; }
+    folha._fechando = true;
+    folha.style.transition = "transform .26s cubic-bezier(.4,0,1,1)";
+    folha.style.transform = "translateY(" + (folha.offsetHeight + 40) + "px)";
+    folha.style.setProperty("--fade", "0");
+    setTimeout(function () {
+      folha.close();
+      folha.style.transition = "";
+      folha.style.transform = "";
+      folha.style.removeProperty("--fade");
+      folha._fechando = false;
+    }, 260);
+  };
+
   document.querySelectorAll("dialog.folha").forEach(function (folha) {
     var topo = folha.querySelector(".folha__topo");
     var y0 = 0, dy = 0, t0 = 0, ativo = false, arrastou = false, origem = null;
@@ -50,6 +67,9 @@
       }
     }
 
+    // Esc também fecha com animação
+    folha.addEventListener("cancel", function (e) { e.preventDefault(); window.fecharFolha(folha); });
+
     // 1) Barra/título: ponteiro (mouse e toque)
     if (topo) {
       topo.addEventListener("pointerdown", function (e) {
@@ -62,6 +82,9 @@
       topo.addEventListener("pointercancel", soltar);
       // um arraste não deve contar como toque na barra (que fecha o painel)
       topo.addEventListener("click", function (e) { if (arrastou) { e.preventDefault(); e.stopPropagation(); arrastou = false; } }, true);
+      // toque simples na barra: fecha com animação (em vez do fechamento seco do form method=dialog)
+      var barra = topo.querySelector(".barra");
+      if (barra) barra.addEventListener("click", function (e) { e.preventDefault(); window.fecharFolha(folha); });
     }
 
     // 2) Corpo do painel: só começa se o conteúdo estiver no topo e o gesto for para baixo
