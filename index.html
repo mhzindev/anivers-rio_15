@@ -21,6 +21,12 @@
 </head>
 <body>
 
+<!-- Preloader: a assinatura da aniversariante é "escrita" antes de revelar o convite -->
+<div class="preloader" id="preloader" role="status" aria-label="Carregando o convite">
+  <div class="assinatura" id="assinatura"><img src="assets/assinatura.svg" alt="Marcella Karoline" width="3800" height="801"></div>
+</div>
+<noscript><style>.preloader{display:none}</style></noscript>
+
 <main class="palco">
   <div class="convite" id="convite">
 
@@ -186,6 +192,7 @@
   </div>
 </dialog>
 
+<script src="js/preloader.js"></script>
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>
 </body>

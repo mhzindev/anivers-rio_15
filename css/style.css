@@ -235,3 +235,13 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 
 /* Teclado virtual: o painel sobe junto e nunca passa da área visível */
 .folha{margin-bottom:var(--teclado,0px);max-height:min(92dvh,calc(var(--vvh,100dvh) - 8px))}
+
+/* Preloader — assinatura */
+.preloader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#fff;opacity:1;transition:opacity .7s ease;cursor:pointer}
+.preloader.saindo{opacity:0;pointer-events:none}
+.assinatura{width:min(86vw,640px);--p:0%;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(var(--p) - 7%),transparent var(--p));
+          mask-image:linear-gradient(90deg,#000 calc(var(--p) - 7%),transparent var(--p));
+  -webkit-mask-size:100% 100%;mask-size:100% 100%}
+.assinatura img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+@media (prefers-reduced-motion:reduce){.preloader{transition-duration:.3s}}
