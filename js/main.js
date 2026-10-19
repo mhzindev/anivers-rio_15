@@ -46,14 +46,46 @@
     });
   }
 
-  function mostrarSucesso() {
+  var SELO_OK = '<img src="assets/icone-confirmar.webp" alt="">';
+  var SELO_NAO = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  function mostrarSucesso(rejeitou) {
     var conf = document.getElementById("folha-confirmar");
     if (conf.open) conf.close();
     var ok = document.getElementById("folha-sucesso");
+    document.getElementById("t-sucesso").textContent = rejeitou ? "Sentiremos sua falta" : "Sua presença foi confirmada";
+    document.getElementById("selo").innerHTML = rejeitou ? SELO_NAO : SELO_OK;
     if (!ok.open) ok.showModal();
   }
-  // Pré-visualização da tela de confirmação: index.html#confirmado
-  if (location.hash === "#confirmado") mostrarSucesso();
+  // Pré-visualização das telas: index.html#confirmado ou #rejeitado
+  if (location.hash === "#confirmado") mostrarSucesso(false);
+  if (location.hash === "#rejeitado") mostrarSucesso(true);
+
+  // ---- Prazo de confirmação: até 25/10/2026 23:59:59 (Brasília) ----
+  var PRAZO = new Date("2026-10-25T23:59:59-03:00").getTime();
+  var prazo = document.getElementById("prazo");
+  var formRsvp = document.getElementById("form-rsvp");
+  var encerrado = false;
+  function dois(n) { return (n < 10 ? "0" : "") + n; }
+  function atualizarPrazo() {
+    var resta = PRAZO - Date.now();
+    if (resta <= 0) {
+      if (!encerrado) {
+        encerrado = true;
+        prazo.classList.add("encerrado");
+        formRsvp.classList.add("encerrado");
+        document.getElementById("prazo-tit").textContent = "O prazo para confirmar presença foi encerrado.";
+        clearInterval(relogio);
+      }
+      return;
+    }
+    var seg = Math.floor(resta / 1000);
+    document.getElementById("cd-d").textContent = dois(Math.floor(seg / 86400));
+    document.getElementById("cd-h").textContent = dois(Math.floor(seg % 86400 / 3600));
+    document.getElementById("cd-m").textContent = dois(Math.floor(seg % 3600 / 60));
+    document.getElementById("cd-s").textContent = dois(seg % 60);
+  }
+  var relogio = setInterval(atualizarPrazo, 1000);
+  atualizarPrazo();
 
   // ---- Validação e formatação do RSVP ----
   var form = document.getElementById("form-rsvp");
@@ -125,6 +157,8 @@
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (encerrado) return;
+      var rejeitar = e.submitter && e.submitter.value === "rejeitar";
       retorno.className = "retorno";
       retorno.textContent = "";
       var nome = limparNome(inNome.value);
@@ -142,16 +176,18 @@
       }
       var corpo = {
         nome: nome,
-        telefone: telefone
+        telefone: telefone,
+        confirmado: !rejeitar
       };
       retorno.textContent = "Enviando…";
-      fetch(cfg.supabaseUrl + "/rest/v1/rsvps", {
+      // on_conflict + merge-duplicates: quem já confirmou pode desconfirmar (e vice-versa) com o mesmo número.
+      fetch(cfg.supabaseUrl + "/rest/v1/rsvps?on_conflict=telefone", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           apikey: cfg.supabaseAnonKey,
           Authorization: "Bearer " + cfg.supabaseAnonKey,
-          Prefer: "return=minimal"
+          Prefer: "resolution=merge-duplicates,return=minimal"
         },
         body: JSON.stringify(corpo)
       }).then(function (r) {
@@ -160,7 +196,7 @@
         inNome.setAttribute("aria-invalid", "false");
         inTel.setAttribute("aria-invalid", "false");
         retorno.textContent = "";
-        mostrarSucesso();
+        mostrarSucesso(rejeitar);
       }).catch(function () {
         retorno.className = "retorno erro";
         retorno.textContent = "Não foi possível enviar agora. Tente novamente.";

@@ -96,6 +96,15 @@
 <dialog class="folha" id="folha-confirmar" aria-labelledby="t-confirmar">
   <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-confirmar">Confirmar presença</h2><p class="folha__sub">preencha os dados para confirmar a sua presença</p></form>
   <div class="folha__corpo">
+    <div class="prazo" id="prazo">
+      <p class="prazo__tit" id="prazo-tit">Confirme até <b>25/10</b></p>
+      <div class="prazo__rel" id="prazo-rel" role="timer" aria-label="Tempo restante para confirmar">
+        <div><b id="cd-d">00</b><span>dias</span></div>
+        <div><b id="cd-h">00</b><span>horas</span></div>
+        <div><b id="cd-m">00</b><span>min</span></div>
+        <div><b id="cd-s">00</b><span>seg</span></div>
+      </div>
+    </div>
     <form id="form-rsvp" class="campos" novalidate>
       <label>Nome completo
         <input name="nome" required autocomplete="name" maxlength="80" placeholder="Nome e sobrenome" aria-describedby="erro-nome">
@@ -105,7 +114,8 @@
         <input name="telefone" type="tel" inputmode="numeric" required autocomplete="tel-national" maxlength="15" placeholder="(99) 99999-9999" aria-describedby="erro-telefone">
         <span class="erro-campo" id="erro-telefone"></span>
       </label>
-      <button class="enviar" type="submit" aria-label="Confirmar presença"><img src="assets/icone-confirmar.webp" alt=""></button>
+      <button class="enviar" type="submit" name="acao" value="confirmar" aria-label="Confirmar presença"><img src="assets/icone-confirmar.webp" alt=""></button>
+      <button class="rejeitar" type="submit" name="acao" value="rejeitar" formnovalidate>Rejeitar convite</button>
       <p class="retorno" id="retorno-rsvp" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -113,7 +123,7 @@
 
 <dialog class="folha folha--sucesso" id="folha-sucesso" aria-labelledby="t-sucesso">
   <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-sucesso">Sua presença foi confirmada</h2></form>
-  <div class="selo" aria-hidden="true"><img src="assets/icone-confirmar.webp" alt=""></div>
+  <div class="selo" id="selo" aria-hidden="true"><img src="assets/icone-confirmar.webp" alt=""></div>
 </dialog>
 
 <dialog class="folha" id="folha-mapa" aria-labelledby="t-mapa">
