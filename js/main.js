@@ -32,11 +32,10 @@
 
   function limparNome(v) { return v.replace(/\s+/g, " ").trim(); }
 
-  // Pelo menos dois nomes, cada um com 2+ letras; só letras, espaço, apóstrofo e hífen.
+  // Pelo menos dois nomes, cada um com 2+ letras; só letras e espaços.
   function validarNome(v) {
     v = limparNome(v);
     if (!v) return "Informe seu nome.";
-    if (!/^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ' -]*$/.test(v)) return "Use apenas letras no nome.";
     var partes = v.split(" ").filter(function (p) { return p.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, "").length >= 2; });
     if (partes.length < 2) return "Informe nome e sobrenome.";
     return "";
@@ -79,6 +78,12 @@
       if (inTel.getAttribute("aria-invalid") === "true") mostrarErro(inTel, validarTelefone(inTel.value));
     });
     inNome.addEventListener("input", function () {
+      var limpo = inNome.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ ]/g, "");
+      if (limpo !== inNome.value) {
+        var pos = inNome.selectionStart - (inNome.value.length - limpo.length);
+        inNome.value = limpo;
+        inNome.setSelectionRange(pos, pos);
+      }
       if (inNome.getAttribute("aria-invalid") === "true") mostrarErro(inNome, validarNome(inNome.value));
     });
     inNome.addEventListener("blur", function () {
