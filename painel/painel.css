@@ -1,6 +1,6 @@
 
-@font-face{font-family:Poppins;font-weight:400;src:url("../assets/fonts/Poppins-Regular.ttf")}
-@font-face{font-family:Poppins;font-weight:600;src:url("../assets/fonts/Poppins-SemiBold.ttf")}
+@font-face{font-family:Poppins;font-weight:400;src:url("/assets/fonts/Poppins-Regular.ttf")}
+@font-face{font-family:Poppins;font-weight:600;src:url("/assets/fonts/Poppins-SemiBold.ttf")}
 :root{
   --bg:#fbf3f7; --card:#fff; --linha:#f1dce6; --grade:#f4e6ed;
   --tinta:#3a1a2b; --tinta-2:#6f5563; --tinta-3:#9a8190;
