@@ -15,16 +15,45 @@
     });
   });
 
-  function copiarTexto(botao, texto, rotulo) {
-    var ok = function () { botao.textContent = "Copiado!"; setTimeout(function () { botao.textContent = rotulo; }, 2000); };
-    if (navigator.clipboard) navigator.clipboard.writeText(texto).then(ok, function () {});
-  }
-  var copiarEnd = document.getElementById("copiar-endereco");
-  if (copiarEnd) {
-    copiarEnd.addEventListener("click", function () {
-      copiarTexto(copiarEnd, "Chapéu de Palha, " + document.getElementById("endereco").textContent.trim(), "Copiar endereço");
+  function copiarTexto(texto) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(texto);
+    return new Promise(function (resolve, reject) {
+      var t = document.createElement("textarea");
+      t.value = texto; t.setAttribute("readonly", ""); t.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(t);
+      ok ? resolve() : reject();
     });
   }
+
+  var copiarEnd = document.getElementById("copiar-endereco");
+  var avisoCopia = document.getElementById("aviso-copia");
+  var timerAviso;
+  if (copiarEnd) {
+    copiarEnd.addEventListener("click", function () {
+      var texto = "Chapéu de Palha, " + document.getElementById("endereco").textContent.trim();
+      copiarTexto(texto).then(function () {
+        avisoCopia.textContent = "O endereço foi copiado";
+        avisoCopia.classList.add("visivel");
+        clearTimeout(timerAviso);
+        timerAviso = setTimeout(function () { avisoCopia.classList.remove("visivel"); }, 2500);
+      }, function () {
+        avisoCopia.textContent = "Não foi possível copiar. Copie o endereço manualmente.";
+        avisoCopia.classList.add("visivel");
+      });
+    });
+  }
+
+  function mostrarSucesso() {
+    var conf = document.getElementById("folha-confirmar");
+    if (conf.open) conf.close();
+    var ok = document.getElementById("folha-sucesso");
+    if (!ok.open) ok.showModal();
+  }
+  // Pré-visualização da tela de confirmação: index.html#confirmado
+  if (location.hash === "#confirmado") mostrarSucesso();
 
   // ---- Validação e formatação do RSVP ----
   var form = document.getElementById("form-rsvp");
@@ -130,7 +159,8 @@
         form.reset();
         inNome.setAttribute("aria-invalid", "false");
         inTel.setAttribute("aria-invalid", "false");
-        retorno.textContent = "Obrigada! Sua resposta foi registrada.";
+        retorno.textContent = "";
+        mostrarSucesso();
       }).catch(function () {
         retorno.className = "retorno erro";
         retorno.textContent = "Não foi possível enviar agora. Tente novamente.";

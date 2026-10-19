@@ -101,6 +101,11 @@
   </div>
 </dialog>
 
+<dialog class="folha folha--sucesso" id="folha-sucesso" aria-labelledby="t-sucesso">
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-sucesso">Sua presença foi confirmada</h2></form>
+  <div class="selo" aria-hidden="true"><img src="assets/icone-confirmar.webp" alt=""></div>
+</dialog>
+
 <dialog class="folha" id="folha-mapa" aria-labelledby="t-mapa">
   <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-mapa">Endereço no mapa</h2></form>
   <div class="folha__corpo">
@@ -112,6 +117,7 @@
          href="https://www.google.com/maps/search/?api=1&amp;query=Chap%C3%A9u+de+Palha+R.+Seis%2C+5%2C+Imperatriz+-+MA%2C+65913-726">Abrir no Maps</a>
       <button type="button" class="botao botao--claro" id="copiar-endereco">Copiar endereço</button>
     </div>
+    <p class="aviso-copia" id="aviso-copia" role="status" aria-live="polite">O endereço foi copiado</p>
   </div>
 </dialog>
 
