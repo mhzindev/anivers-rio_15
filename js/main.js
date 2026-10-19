@@ -11,7 +11,7 @@
   // Fecha ao tocar fora do painel
   document.querySelectorAll("dialog.folha").forEach(function (folha) {
     folha.addEventListener("click", function (e) {
-      if (e.target === folha) folha.close();
+      if (e.target === folha) (window.fecharFolha ? window.fecharFolha(folha) : folha.close());
     });
   });
 
