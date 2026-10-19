@@ -105,6 +105,10 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .campos label{display:grid;gap:calc(6*var(--s));font-weight:600;font-size:calc(36*var(--s));line-height:1.333;letter-spacing:-.04em;color:var(--rosa)}
 .campos input{font:400 calc(34*var(--s))/1.2 "Poppins",sans-serif;color:var(--vinho);height:calc(90.5*var(--s));padding:0 calc(24*var(--s));border:3px solid #f36c96;border-radius:calc(16*var(--s));background:#fff;width:100%;outline:none}
 .campos input:focus{border-color:var(--rosa);box-shadow:0 0 0 3px rgba(221,45,124,.18)}
+.campos input::placeholder{color:#c9a3b5;font-weight:400}
+.campos input[aria-invalid=true]{border-color:#b3261e}
+.erro-campo{font-weight:400;font-size:calc(24*var(--s));letter-spacing:-.02em;color:#b3261e;min-height:0}
+.erro-campo:empty{display:none}
 .enviar{justify-self:center;margin-top:calc(30*var(--s));width:calc(132*var(--s));height:calc(132*var(--s));border:0;border-radius:50%;background:var(--rosa);cursor:pointer;display:grid;place-items:center;transition:transform .2s ease}
 .enviar:hover{transform:scale(1.05)}
 .enviar img{width:62%;height:auto}

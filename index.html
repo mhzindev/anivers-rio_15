@@ -88,10 +88,12 @@
   <div class="folha__corpo">
     <form id="form-rsvp" class="campos" novalidate>
       <label>Nome
-        <input name="nome" required autocomplete="name">
+        <input name="nome" required autocomplete="name" maxlength="80" placeholder="Nome e sobrenome" aria-describedby="erro-nome">
+        <span class="erro-campo" id="erro-nome"></span>
       </label>
       <label>Número (WhatsApp)
-        <input name="telefone" type="tel" inputmode="tel" required autocomplete="tel">
+        <input name="telefone" type="tel" inputmode="numeric" required autocomplete="tel-national" maxlength="15" placeholder="(99) 99999-9999" aria-describedby="erro-telefone">
+        <span class="erro-campo" id="erro-telefone"></span>
       </label>
       <button class="enviar" type="submit" aria-label="Confirmar presença"><img src="assets/icone-confirmar.webp" alt=""></button>
       <p class="retorno" id="retorno-rsvp" role="status" aria-live="polite"></p>
