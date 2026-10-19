@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel · Karoline 15 anos (pré-visualização)</title>
+<style>
+@font-face{font-family:Poppins;font-weight:400;src:url("../../assets/fonts/Poppins-Regular.ttf")}
+@font-face{font-family:Poppins;font-weight:600;src:url("../../assets/fonts/Poppins-SemiBold.ttf")}
+:root{
+  --bg:#fbf3f7; --card:#fff; --linha:#f1dce6; --grade:#f4e6ed;
+  --tinta:#3a1a2b; --tinta-2:#6f5563; --tinta-3:#9a8190;
+  --vinho:#890340; --rosa:#dd2d7c; --azul:#2a78d6;
+  --rosa-claro:#fff4f8;
+  --ok:#0b7a3b; --alerta:#9a5b00;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tinta);font:400 15px/1.45 Poppins,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.pag{max-width:1180px;margin:0 auto;padding:20px 16px 56px}
+.exemplo{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--alerta);background:#fff3d6;border-radius:99px;padding:4px 12px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:12px 0 18px}
+h1{font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--vinho)}
+.sub{color:var(--tinta-2);font-size:13px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:10px 16px;font:600 14px Poppins;cursor:pointer;background:var(--rosa);color:#fff}
+.btn.claro{background:#fff;color:var(--vinho);box-shadow:inset 0 0 0 1.5px #f1b8cd}
+.btn svg{width:18px;height:18px}
+.card{background:var(--card);border-radius:20px;padding:18px;box-shadow:0 1px 0 var(--linha),0 8px 24px rgba(137,3,64,.05)}
+h2{font-size:15px;font-weight:600;color:var(--tinta);letter-spacing:-.01em}
+.h2sub{font-size:12.5px;color:var(--tinta-3);margin-top:2px}
+
+/* prazo */
+.prazo{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;background:linear-gradient(100deg,var(--vinho),#b0145a);color:#fff;border-radius:20px;padding:16px 20px;margin-bottom:16px}
+.prazo b{font-weight:600}
+.prazo .tit{font-size:14px;opacity:.9}
+.prazo .num{font-size:26px;font-weight:600;letter-spacing:-.02em}
+.prazo .blocos{display:flex;gap:22px}
+.prazo small{display:block;font-size:12px;opacity:.8}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.kpi .rot{font-size:13px;color:var(--tinta-2);display:flex;align-items:center;gap:8px}
+.kpi .dot{width:10px;height:10px;border-radius:3px}
+.kpi .n{font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.15;margin-top:6px;color:var(--tinta)}
+.kpi .ctx{font-size:12.5px;color:var(--tinta-3)}
+.kpi .ctx b{color:var(--ok);font-weight:600}
+
+/* proporção */
+.prop{margin-top:14px;display:flex;gap:2px;height:14px}
+.prop span{display:block;height:100%;border-radius:4px 0 0 4px}
+.prop span+span{border-radius:0 4px 4px 0}
+
+.grade{display:grid;gap:16px;margin-bottom:16px}
+.leg{display:flex;gap:16px;font-size:12.5px;color:var(--tinta-2);margin:10px 0 4px;flex-wrap:wrap}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* barras por dia */
+.dias{position:relative;display:flex;align-items:flex-end;gap:8px;height:240px;margin-top:10px;padding:8px 0 0 26px}
+.dias::before{content:"";position:absolute;inset:0 0 22px 26px;background:repeating-linear-gradient(to top,transparent 0,transparent calc(25% - 1px),var(--grade) calc(25% - 1px),var(--grade) 25%);pointer-events:none}
+.dia{position:relative;flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.dia .pilha{width:100%;max-width:34px;display:flex;flex-direction:column-reverse;gap:2px;flex:1;justify-content:flex-start;margin-bottom:6px}
+.eixo{position:absolute;left:0;top:8px;bottom:22px;display:flex;flex-direction:column-reverse;justify-content:space-between;font-size:11px;color:var(--tinta-3)}
+.dia .seg{width:100%;border-radius:4px 4px 0 0}
+.dia .seg.c{background:var(--rosa);border-radius:0 0 3px 3px}
+.dia .seg.r{background:var(--azul);border-radius:4px 4px 0 0}
+.dia label{font-size:11.5px;color:var(--tinta-3)}
+.dia:hover .pilha{filter:brightness(.95)}
+.tip{position:absolute;bottom:calc(100% - 28px);left:50%;transform:translateX(-50%);background:var(--tinta);color:#fff;font-size:12px;padding:8px 10px;border-radius:10px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2}
+.dia:hover .tip{opacity:1}
+.dia:nth-last-child(-n+3) .tip{left:auto;right:0;transform:none}
+.dia:nth-child(-n+3) .tip{left:0;transform:none}
+body{overflow-x:hidden}
+
+/* presentes */
+.pres{list-style:none;display:grid;gap:10px;margin-top:14px}
+.pres li{display:grid;grid-template-columns:minmax(120px,40%) 1fr 28px;gap:10px;align-items:center;font-size:13.5px}
+.pres .barra{height:12px;background:var(--rosa-claro);border-radius:0 6px 6px 0;position:relative}
+.pres .barra i{position:absolute;inset:0 auto 0 0;background:var(--rosa);border-radius:0 6px 6px 0}
+.pres .v{font-weight:600;text-align:right}
+.outros{margin-top:14px;padding-top:12px;border-top:1px dashed var(--linha)}
+.outros p{font-size:12.5px;color:var(--tinta-3);margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--rosa-claro);color:var(--vinho);border-radius:99px;padding:5px 12px;font-size:12.5px}
+.nota{margin-top:12px;font-size:12.5px;color:var(--tinta-2);background:var(--rosa-claro);border-radius:12px;padding:10px 12px}
+
+/* tabela */
+.ferr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:12px 0}
+.busca{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;border:1.5px solid #f1b8cd;border-radius:12px;padding:9px 12px;background:#fff}
+.busca input{border:0;outline:0;font:400 14px Poppins;width:100%;color:var(--tinta)}
+.seg-ctrl{display:inline-flex;max-width:100%;background:var(--rosa-claro);border-radius:12px;padding:3px}
+.seg-ctrl button{flex:1;white-space:nowrap;border:0;background:none;font:600 13px Poppins;color:var(--tinta-2);padding:7px 14px;border-radius:9px;cursor:pointer}
+.seg-ctrl button[aria-pressed=true]{background:#fff;color:var(--vinho);box-shadow:0 1px 3px rgba(137,3,64,.15)}
+.tab-wrap{overflow:auto;border-radius:14px;box-shadow:inset 0 0 0 1px var(--linha);-webkit-overflow-scrolling:touch}
+.tab-wrap.aberta{max-height:520px}
+table{width:100%;min-width:720px;border-collapse:separate;border-spacing:0;font-size:14px}
+th{position:sticky;top:0;z-index:2;background:#fff}
+th.c-nome,td.c-nome{position:sticky;left:0;background:#fff;z-index:1}
+th.c-nome{z-index:3}
+td.c-nome::after,th.c-nome::after{content:"";position:absolute;top:0;right:-8px;bottom:0;width:8px;background:linear-gradient(90deg,rgba(137,3,64,.08),transparent);pointer-events:none;opacity:0;transition:opacity .15s}
+.tab-wrap.rolou td.c-nome::after,.tab-wrap.rolou th.c-nome::after{opacity:1}
+tbody tr:hover td{background:#fffafc}
+tbody tr:hover td.c-nome{background:#fffafc}
+th{font-size:12px;font-weight:600;color:var(--tinta-3);text-align:left;padding:10px;border-bottom:1px solid var(--linha);white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid var(--grade);vertical-align:middle;white-space:nowrap}
+.nome{font-weight:600}
+.tel{color:var(--tinta-2);font-variant-numeric:tabular-nums}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border-radius:99px;padding:4px 10px}
+.st svg{width:14px;height:14px}
+.st.sim{background:#e6f6ec;color:#0b6a33}
+.st.nao{background:#e8f0fc;color:#1d5aa8}
+.wa{display:inline-flex;width:32px;height:32px;border-radius:10px;align-items:center;justify-content:center;background:var(--rosa-claro);color:var(--vinho)}
+.wa svg{width:16px;height:16px}
+.rodape-tab{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--tinta-3);font-size:12.5px}
+.vazio{display:none;text-align:center;color:var(--tinta-3);padding:24px}
+
+@media (min-width:760px){
+  .pag{padding:28px 24px 64px}
+  .kpis{grid-template-columns:repeat(4,1fr)}
+  .grade{grid-template-columns:1.25fr 1fr}
+  .kpi .n{font-size:38px}
+}
+@media (max-width:759px){
+  .seg-ctrl{width:100%}.seg-ctrl button{padding:8px 4px;font-size:12px}
+  .busca{min-width:0}
+  .prazo .blocos{gap:18px}
+}
+</style>
+</head>
+<body>
+<div class="pag">
+
+<span class="exemplo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg> Dados de exemplo · pré-visualização do painel</span>
+
+<header>
+  <div>
+    <h1>Painel do convite</h1>
+    <p class="sub">Karoline · 15 anos · sábado, 14/11/2026 às 19h00 · Chapéu de Palha</p>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn claro" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg>Atualizar</button>
+    <button class="btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Exportar PDF</button>
+  </div>
+</header>
+
+<section class="prazo" aria-label="Prazos">
+  <div>
+    <div class="tit">Confirmações encerram em <b>25/10</b></div>
+    <div class="num">6 dias e 23 h</div>
+  </div>
+  <div class="blocos">
+    <div><small>Evento em</small><b>26 dias</b></div>
+    <div><small>Última resposta</small><b>há 12 min</b></div>
+  </div>
+</section>
+
+<section class="kpis" aria-label="Resumo">
+  <div class="card kpi"><div class="rot">Respostas recebidas</div><div class="n">48</div><div class="ctx">pessoas diferentes</div></div>
+  <div class="card kpi"><div class="rot"><span class="dot" style="background:var(--rosa)"></span>Confirmaram</div><div class="n">39</div><div class="ctx"><b>81%</b> das respostas</div></div>
+  <div class="card kpi"><div class="rot"><span class="dot" style="background:var(--azul)"></span>Rejeitaram</div><div class="n">9</div><div class="ctx">19% das respostas</div></div>
+  <div class="card kpi"><div class="rot">Presentes escolhidos</div><div class="n">39</div><div class="ctx">4 em “Outro”</div></div>
+</section>
+
+<div class="grade">
+  <section class="card" aria-labelledby="t-dias">
+    <h2 id="t-dias">Respostas por dia</h2>
+    <p class="h2sub">Últimos 10 dias · passe o mouse ou toque numa barra</p>
+    <div class="leg"><span><i style="background:var(--rosa)"></i>Confirmaram</span><span><i style="background:var(--azul)"></i>Rejeitaram</span></div>
+    <div class="dias" id="dias"></div>
+    <div class="prop" aria-label="Proporção"><span style="width:81.25%;background:var(--rosa)"></span><span style="width:18.75%;background:var(--azul)"></span></div>
+    <p class="h2sub" style="margin-top:8px">Proporção total: 39 confirmaram · 9 rejeitaram</p>
+  </section>
+
+  <section class="card" aria-labelledby="t-pres">
+    <h2 id="t-pres">Presentes escolhidos</h2>
+    <p class="h2sub">Repetições são permitidas · ordenado por mais escolhido</p>
+    <ul class="pres" id="pres"></ul>
+    <div class="outros">
+      <p>Escreveram em “Outro” (4)</p>
+      <div class="chips"><span class="chip">Kit de maquiagem</span><span class="chip">Fone de ouvido</span><span class="chip">Livro + cartão</span><span class="chip">Vale-presente</span></div>
+    </div>
+  </section>
+</div>
+
+<section class="card" aria-labelledby="t-resp">
+  <h2 id="t-resp">Respostas</h2>
+  <p class="h2sub">Mais recentes primeiro · o número abre a conversa no WhatsApp</p>
+  <div class="ferr">
+    <label class="busca"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9a8190" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Buscar por nome ou presente" aria-label="Buscar"></label>
+    <div class="seg-ctrl" role="group" aria-label="Filtrar por status">
+      <button type="button" data-f="todos" aria-pressed="true">Todos <span id="n-todos">48</span></button>
+      <button type="button" data-f="sim" aria-pressed="false">Confirmaram <span id="n-sim">39</span></button>
+      <button type="button" data-f="nao" aria-pressed="false">Rejeitaram <span id="n-nao">9</span></button>
+    </div>
+  </div>
+  <div class="tab-wrap" id="wrap" tabindex="0" role="region" aria-label="Lista de respostas (role para ver mais)"><table class="tabela">
+    <thead><tr><th class="c-nome">Nome</th><th>WhatsApp</th><th></th><th>Status</th><th>Presente</th><th>Quando</th></tr></thead>
+    <tbody id="linhas"></tbody>
+  </table></div>
+  <p class="vazio" id="vazio">Nenhuma resposta encontrada.</p>
+  <div class="rodape-tab"><span id="cont">Mostrando 12 de 48</span><button class="btn claro" type="button" id="ver-todas">Ver todas (48)</button></div>
+</section>
+
+</div>
+
+<script>
+// ---- Dados de exemplo (fictícios) ----
+var DIAS=[["09/10",3,0],["10/10",5,1],["11/10",8,2],["12/10",6,2],["13/10",4,1],["14/10",5,1],["15/10",3,1],["16/10",2,0],["17/10",2,1],["18/10",1,0]];
+var PRES=[["Perfume ou creme de pele",9],["Roupa · 38 / M",7],["Sandália · 36 / 37",6],["Colar ou pulseira",5],["Anel · 18",4],["Outro presente",4],["Bolsa de lado",3],["Produtos de cabelo",1]];
+var N1=["Ana","Beatriz","Carlos","Daniela","Eduardo","Fernanda","Gustavo","Helena","Igor","Juliana","Lucas","Mariana","Natália","Otávio","Paula","Rafael","Sofia","Thiago","Vanessa","William"];
+var N2=["Lima","Rocha","Costa","Alves","Souza","Santos","Pereira","Martins","Ribeiro","Gomes","Ferreira","Araújo","Carvalho","Barbosa"];
+var G=["Perfume ou creme de pele","Roupa · 38 / M","Sandália · aberta 36","Colar ou pulseira","Anel · 18","Bolsa de lado","Outro: Kit de maquiagem","Produtos de cabelo"];
+var QUANDO=["há 12 min","há 1 h","há 2 h","há 3 h","há 5 h","ontem","ontem","ontem","há 2 dias","há 2 dias","há 3 dias","há 4 dias","há 5 dias","há 6 dias","há 7 dias"];
+var R=[];
+for(var i=0;i<48;i++){var nao=(i%5===1&&R.filter(function(r){return r[2]==='nao'}).length<9);
+  R.push([N1[(i*7)%N1.length]+" "+N2[(i*3+1)%N2.length],String(1000+((i*7919)%9000)),nao?"nao":"sim",nao?"—":G[(i*5)%G.length],QUANDO[Math.min(14,Math.floor(i*15/48))]])}
+var nn=R.filter(function(r){return r[2]==='nao'}).length; // garante 9 rejeições / 39 confirmações
+for(var k=R.length-1;nn<9&&k>=0;k--){if(R[k][2]==='sim'){R[k][2]='nao';R[k][3]='—';nn++}}
+// barras por dia
+var max=Math.max.apply(null,DIAS.map(function(d){return d[1]+d[2]}));
+document.getElementById('dias').innerHTML='<div class="eixo"><span>0</span><span>5</span><span>10</span></div>'+DIAS.map(function(d){
+  var h=function(v){return (v/10*100).toFixed(1)+'%'};
+  return '<div class="dia"><div class="tip">'+d[0]+' · '+d[1]+' confirmaram · '+d[2]+' rejeitaram</div><div class="pilha">'+
+   '<div class="seg c" style="height:'+h(d[1])+'"></div>'+(d[2]?'<div class="seg r" style="height:'+h(d[2])+'"></div>':'')+'</div><label>'+d[0].slice(0,2)+'</label></div>'}).join('');
+
+// presentes
+var pm=Math.max.apply(null,PRES.map(function(p){return p[1]}));
+document.getElementById('pres').innerHTML=PRES.map(function(p){return '<li><span>'+p[0]+'</span><span class="barra"><i style="width:'+(p[1]/pm*100)+'%"></i></span><span class="v">'+p[1]+'</span></li>'}).join('');
+
+// tabela
+var ICO={sim:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.4 4.4L19 7.4"/></svg>',nao:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>'};
+var WA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.5L3 21l1.6-5.4A8.5 8.5 0 1 1 21 12z"/></svg>';
+var filtro='todos',termo='',aberta=false,LIMITE=10;
+var wrap=document.getElementById('wrap'),btn=document.getElementById('ver-todas');
+function render(){
+  var rows=R.filter(function(r){return (filtro==='todos'||r[2]===filtro)&&(r[0]+' '+r[3]).toLowerCase().indexOf(termo)>-1});
+  var filtrando=termo!==''||filtro!=='todos';
+  var mostra=(aberta||filtrando)?rows:rows.slice(0,LIMITE);
+  document.getElementById('linhas').innerHTML=mostra.map(function(r){
+    return '<tr><td class="c-nome nome">'+r[0]+'</td><td class="c-tel tel">(99) 9••••-'+r[1]+'</td><td class="c-wa"><a class="wa" href="#" aria-label="Abrir WhatsApp de '+r[0]+'">'+WA+'</a></td>'+
+    '<td class="c-st"><span class="st '+r[2]+'">'+ICO[r[2]]+(r[2]==='sim'?'Confirmou':'Rejeitou')+'</span></td><td class="c-pres">'+r[3]+'</td><td class="c-quando">'+r[4]+'</td></tr>'}).join('');
+  document.getElementById('vazio').style.display=rows.length?'none':'block';
+  document.getElementById('cont').textContent='Mostrando '+mostra.length+' de '+rows.length+(filtrando?' resultados':'');
+  // botão: só existe quando há linhas escondidas (ou lista expandida para recolher)
+  var temMais=!filtrando&&rows.length>LIMITE;
+  btn.style.display=temMais?'':'none';
+  btn.textContent=aberta?'Mostrar menos':'Ver todas ('+rows.length+')';
+  btn.setAttribute('aria-expanded',aberta);
+  wrap.classList.toggle('aberta',aberta&&mostra.length>LIMITE);
+}
+btn.addEventListener('click',function(){aberta=!aberta;render();if(!aberta){wrap.scrollTop=0;document.getElementById('t-resp').scrollIntoView({behavior:'smooth',block:'start'})}});
+wrap.addEventListener('scroll',function(){wrap.classList.toggle('rolou',wrap.scrollLeft>2)});
+document.querySelectorAll('.seg-ctrl button').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.seg-ctrl button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});filtro=b.dataset.f;wrap.scrollTop=0;render()})});
+document.getElementById('q').addEventListener('input',function(e){termo=e.target.value.trim().toLowerCase();wrap.scrollTop=0;render()});
+render();
+</script>
+</body>
+</html>
