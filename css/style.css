@@ -1,0 +1,116 @@
+@font-face{font-family:"Mumbai Sticker";src:url("../assets/fonts/TheMumbaiSticker-Regular.ttf") format("truetype");font-display:block}
+@font-face{font-family:"Glacial Indifference";font-weight:400;src:url("../assets/fonts/GlacialIndifference-Regular.ttf") format("truetype");font-display:block}
+@font-face{font-family:"Glacial Indifference";font-weight:700;src:url("../assets/fonts/GlacialIndifference-Bold.ttf") format("truetype");font-display:block}
+
+:root{
+  --vinho:#890340;
+  --vinho-texto:#a60148;
+  --rosa:#dd2d7c;
+  --papel:#fff;
+  --margem:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--papel)}
+body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--vinho-texto);-webkit-text-size-adjust:100%}
+
+/* Palco: composição 810×1440 (9:16) escalada pela largura disponível */
+.palco{min-height:100dvh;display:grid;place-items:center;background:var(--papel)}
+.convite{
+  position:relative;overflow:hidden;container-type:size;
+  --larg:min(100vw,calc(100dvh * 9 / 16));
+  width:var(--larg);height:100dvh;
+  --u:calc(100cqw / 810);
+  background:var(--papel);
+}
+.convite > *,.arte > *{position:absolute}
+.arte{left:0;top:50%;width:100%;height:calc(1440*var(--u));transform:translateY(-50%)}
+
+/* Rosas */
+.rosas{pointer-events:none;user-select:none}
+.rosas--topo{left:calc(-70.4*var(--u));top:calc(-79*var(--u));width:calc(360*var(--u));height:auto;transform:rotate(180deg)}
+.rosas--base{left:calc(501.8*var(--u));bottom:calc(-76.9*var(--u));width:calc(360.0*var(--u));height:auto}
+.data{inset:0}
+.data .t{position:absolute}
+.enfeites{left:0;top:0;width:100%;height:100%;pointer-events:none}
+
+/* Textos centrados em --cx, topo em --y, altura de linha --h (unidades da composição) */
+.nome,.idade,.chamada,.t,.dica{
+  left:calc(var(--cx)*var(--u));top:calc(var(--y)*var(--u));
+  transform:translateX(-50%);white-space:nowrap;text-align:center;
+  line-height:calc(var(--h)*var(--u));
+}
+.nome{font-family:"Mumbai Sticker",cursive;font-weight:400;font-size:calc(var(--fs-nome,220.8)*var(--u));color:var(--vinho)}
+.idade{display:flex;gap:calc(18.9*var(--u));font-family:"Mumbai Sticker",cursive;font-weight:400;font-size:calc(var(--fs-idade,135.2)*var(--u));color:var(--rosa)}
+.chamada{font-size:calc(var(--fs-chamada,30.1)*var(--u));color:var(--vinho-texto);line-height:calc(41.5*var(--u))}
+.t{font-size:calc(var(--fs-data,30.1)*var(--u))}
+.t.dia{font-size:calc(var(--fs-dia,73.9)*var(--u))}
+.t.rosa{font-size:calc(27.6*var(--u))}
+.negrito{font-weight:700}
+.vinho{color:var(--vinho)}
+.rosa{color:var(--rosa)}
+.dica{font-size:calc(var(--fs-dica,26.05)*var(--u));color:var(--vinho-texto);text-decoration:underline;text-decoration-thickness:calc(2.5*var(--u));text-underline-offset:calc(4*var(--u))}
+
+/* Ações */
+.acoes{inset:0;pointer-events:none}
+.acao{
+  position:absolute;pointer-events:auto;cursor:pointer;border:0;background:none;font:inherit;color:inherit;text-decoration:none;
+  left:calc((var(--cx) - 80)*var(--u));top:calc((var(--cy) - 70)*var(--u));
+  width:calc(160*var(--u));height:calc(200*var(--u));
+  -webkit-tap-highlight-color:transparent;
+}
+.acao > *{position:absolute}
+.disco{
+  left:calc(17.5*var(--u));top:calc(7.5*var(--u));width:calc(125*var(--u));height:calc(125*var(--u));
+  border-radius:50%;background:var(--vinho);transition:transform .25s ease,background .25s ease;
+}
+.icone{
+  left:calc((var(--x) - var(--cx) + 80)*var(--u));top:calc((var(--y) - var(--cy) + 70)*var(--u));
+  width:calc(var(--w)*var(--u));height:auto;pointer-events:none;transition:transform .25s ease;
+}
+.rotulo{
+  left:0;right:0;top:calc((var(--y) - var(--cy) + 70)*var(--u));
+  text-align:center;white-space:nowrap;font-weight:700;color:var(--rosa);
+  font-size:calc(var(--fs-rotulo,16.25)*var(--u));line-height:calc(22.5*var(--u));
+}
+.acao:hover .disco,.acao:focus-visible .disco{transform:scale(1.06);background:var(--vinho-texto)}
+.acao:hover .icone,.acao:focus-visible .icone{transform:scale(1.06)}
+.acao:focus-visible{outline:none}
+.acao:focus-visible .disco{box-shadow:0 0 0 calc(4*var(--u)) #fff,0 0 0 calc(7*var(--u)) var(--rosa)}
+
+/* Painéis */
+.folha{
+  margin:auto auto 0;width:min(100vw,560px);max-height:88dvh;border:0;border-radius:20px 20px 0 0;
+  background:#fff;color:var(--vinho-texto);font-family:"Jost",system-ui,sans-serif;overflow:auto;
+  box-shadow:0 -10px 40px rgba(137,3,64,.2);
+}
+.folha::backdrop{background:rgba(137,3,64,.35)}
+.folha[open]{animation:sobe .3s ease}
+@keyframes sobe{from{transform:translateY(24px);opacity:0}}
+.folha__topo{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:18px var(--margem) 12px;background:#fff;border-bottom:1px solid rgba(221,45,124,.25)}
+.folha__topo h2{font-weight:500;font-size:20px;color:var(--vinho)}
+.fechar{border:0;background:none;font-size:30px;line-height:1;color:var(--vinho);cursor:pointer;padding:0 6px}
+.folha__corpo{padding:16px var(--margem) 28px}
+.aviso{font-size:14px;margin-bottom:12px}
+.lista{list-style:none;display:grid;gap:8px}
+.lista li{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid rgba(221,45,124,.35);border-radius:12px}
+.lista b{font-weight:500;color:var(--vinho)}
+.lista span{font-size:14px}
+.pix{margin-top:20px;text-align:center}
+.pix__chave{font-size:22px;font-weight:600;color:var(--vinho);letter-spacing:.04em;margin:4px 0 12px}
+.botao{display:inline-block;border:0;border-radius:999px;background:var(--vinho);color:#fff;font:500 16px "Jost",sans-serif;padding:12px 24px;cursor:pointer}
+.botao:hover{background:var(--vinho-texto)}
+.info{display:grid;grid-template-columns:auto 1fr;gap:10px 16px}
+.info dt{font-weight:600;color:var(--rosa)}
+.campos{display:grid;gap:14px}
+.campos label,.campos legend{display:grid;gap:6px;font-size:15px;color:var(--vinho)}
+.campos fieldset{border:0;display:grid;gap:6px}
+.campos small{color:var(--vinho-texto);opacity:.7}
+.campos input:not([type=radio]),.campos select,.campos textarea{font:inherit;color:inherit;padding:11px 12px;border:1px solid rgba(221,45,124,.5);border-radius:10px;background:#fff;width:100%}
+.opcao{display:flex!important;grid-auto-flow:column;align-items:center;gap:8px!important}
+.campos .botao{justify-self:start}
+.retorno{min-height:1.4em;font-size:14px}
+.retorno.erro{color:#b3261e}
+
+@media (prefers-reduced-motion:reduce){
+  .disco,.icone,.folha[open]{transition:none;animation:none}
+}

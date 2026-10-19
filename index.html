@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Karoline · 15 anos</title>
+<meta name="description" content="Convite para os 15 anos da Karoline. Sábado, 14 de novembro de 2026, às 19h.">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main class="palco">
+  <div class="convite" id="convite">
+
+    <!-- Rosas dos cantos -->
+    <img class="rosas rosas--topo" src="assets/rosas-canto-superior.webp" alt="" width="615" height="634">
+    <img class="rosas rosas--base" src="assets/rosas-canto-inferior.webp" alt="" width="887" height="904">
+
+    <div class="arte">
+      <!-- Linhas, círculo da data e brilhos -->
+      <img class="enfeites" src="assets/enfeites.svg" alt="" width="810" height="1440">
+
+      <!-- Nome -->
+      <h1 class="nome" style="--cx:405; --y:208.4; --h:242.9">Karoline</h1>
+      <p class="idade" style="--cx:404.6; --y:391.9; --h:150"><span>15</span> <span>anos</span></p>
+      <p class="chamada" style="--cx:404.4; --y:532.7; --h:36.2">Neste dia especial, sua presença é<br>mais que importante!</p>
+
+      <!-- Data -->
+      <div class="data">
+        <p class="t negrito vinho" style="--cx:227; --y:749.9; --h:36.2">SÁBADO</p>
+        <p class="t rosa" style="--cx:227; --y:784.8; --h:33.1"><time datetime="19:00">19h00</time></p>
+        <p class="t negrito vinho dia" style="--cx:396.4; --y:737.2; --h:88.7"><time datetime="2026-11-14">14</time></p>
+        <p class="t negrito vinho" style="--cx:569.8; --y:751.5; --h:36.2">NOVEMBRO</p>
+        <p class="t rosa" style="--cx:569.8; --y:789; --h:33.1">2026</p>
+      </div>
+
+      <!-- Ações -->
+      <nav class="acoes" aria-label="Ações do convite">
+        <button class="acao" type="button" data-abrir="presentes" style="--cx:180.5; --cy:1057">
+          <span class="disco"></span>
+          <img class="icone" src="assets/icone-presente.webp" alt="" style="--x:136.2; --y:1013.2; --w:88.8">
+          <span class="rotulo" style="--y:1128.6; --h:19.5">SUGESTÕES DE<br>PRESENTES</span>
+        </button>
+        <button class="acao" type="button" data-abrir="requisitos" style="--cx:345; --cy:1057">
+          <span class="disco"></span>
+          <img class="icone" src="assets/icone-requisitos.svg" alt="" style="--x:318.2; --y:1020; --w:55.5">
+          <span class="rotulo" style="--y:1132.9; --h:19.5">REQUISITOS</span>
+        </button>
+        <button class="acao" type="button" data-abrir="confirmar" style="--cx:509.5; --cy:1057.5">
+          <span class="disco"></span>
+          <img class="icone" src="assets/icone-confirmar.webp" alt="" style="--x:460.2; --y:1008.6; --w:98">
+          <span class="rotulo" style="--y:1128.6; --h:19.5">CONFIRMAR<br>PRESENÇA</span>
+        </button>
+        <a class="acao" id="mapa" target="_blank" rel="noopener" style="--cx:673.5; --cy:1051.5"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Chap%C3%A9u+de+Palha+R.+Seis%2C+5%2C+Imperatriz+-+MA%2C+65913-726">
+          <span class="disco"></span>
+          <img class="icone" src="assets/icone-mapa.webp" alt="" style="--x:625; --y:1002.5; --w:98">
+          <span class="rotulo" style="--y:1128.6; --h:19.5">ENDEREÇO<br>NO MAPA</span>
+        </a>
+      </nav>
+
+      <p class="dica" style="--cx:405; --y:1237.6; --h:31.3">Clique nos ícones para interagir.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Painéis -->
+<dialog class="folha" id="folha-presentes" aria-labelledby="t-presentes">
+  <form method="dialog" class="folha__topo"><h2 id="t-presentes">Sugestões de presentes</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <div class="folha__corpo">
+    <p class="aviso">Tamanhos informados para facilitar a escolha.</p>
+    <ul class="lista">
+      <li><b>Perfume ou creme de pele</b><span>Beleza</span></li>
+      <li><b>Colar ou pulseira</b><span>Dourada ou prata · aço inoxidável ou prata 925</span></li>
+      <li><b>Anel</b><span>Tamanho 18</span></li>
+      <li><b>Produtos e acessórios de cabelo</b><span>Cabelo</span></li>
+      <li><b>Bolsa de lado</b><span>Acessórios</span></li>
+      <li><b>Roupa</b><span>Tamanho 38 / M</span></li>
+      <li><b>Sandália aberta</b><span>Tamanho 36</span></li>
+      <li><b>Sandália fechada</b><span>Tamanho 37</span></li>
+    </ul>
+    <div class="pix">
+      <p>Prefere presentear via Pix?</p>
+      <p class="pix__chave" id="chave-pix">99988036213</p>
+      <button type="button" class="botao" id="copiar-pix">Copiar chave Pix</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="folha" id="folha-requisitos" aria-labelledby="t-requisitos">
+  <form method="dialog" class="folha__topo"><h2 id="t-requisitos">Requisitos</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <div class="folha__corpo">
+    <dl class="info">
+      <dt>Quando</dt><dd>Sábado, 14 de novembro de 2026, às 19h00</dd>
+      <dt>Onde</dt><dd>Chapéu de Palha<br>R. Seis, 5, Imperatriz - MA, 65913-726</dd>
+      <dt>Traje</dt><dd>Ainda não definido.</dd>
+    </dl>
+  </div>
+</dialog>
+
+<dialog class="folha" id="folha-confirmar" aria-labelledby="t-confirmar">
+  <form method="dialog" class="folha__topo"><h2 id="t-confirmar">Confirmar presença</h2><button class="fechar" aria-label="Fechar">×</button></form>
+  <div class="folha__corpo">
+    <form id="form-rsvp" class="campos" novalidate>
+      <label>Nome completo
+        <input name="nome" required autocomplete="name">
+      </label>
+      <fieldset>
+        <legend>Vai comparecer?</legend>
+        <label class="opcao"><input type="radio" name="confirmado" value="true" checked> Sim, estarei lá</label>
+        <label class="opcao"><input type="radio" name="confirmado" value="false"> Não poderei ir</label>
+      </fieldset>
+      <label>Acompanhantes
+        <select name="acompanhantes">
+          <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </label>
+      <label>Restrições alimentares <small>(opcional)</small>
+        <input name="restricoes">
+      </label>
+      <label>Mensagem para a Karoline <small>(opcional)</small>
+        <textarea name="mensagem" rows="3"></textarea>
+      </label>
+      <button class="botao" type="submit">Enviar confirmação</button>
+      <p class="retorno" id="retorno-rsvp" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</dialog>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
