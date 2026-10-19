@@ -173,6 +173,29 @@
 <dialog class="folha folha--sucesso" id="folha-sucesso" aria-labelledby="t-sucesso">
   <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-sucesso">Sua presença foi confirmada</h2><p class="folha__sub" id="sucesso-sub" hidden></p></form>
   <div class="selo" id="selo" aria-hidden="true"><img src="assets/icone-confirmar.webp" alt=""></div>
+  <section class="agenda" id="agenda" aria-labelledby="t-agenda" hidden>
+    <div class="agenda__card">
+      <div class="agenda__data" aria-hidden="true"><span>NOV</span><b>14</b></div>
+      <div class="agenda__txt">
+        <h3 id="t-agenda">15 anos da Karoline</h3>
+        <p>Sábado, 14 de novembro · 19h00 às 00h</p>
+        <p>Chapéu de Palha · Imperatriz - MA</p>
+      </div>
+    </div>
+    <div class="agenda__acoes">
+      <a class="btn btn--sim" id="ag-ics" href="assets/aniversario-karoline.ics" download="15-anos-da-karoline.ics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M12 13.5v4.5M9.750 15.750h4.500"/></svg>
+        <span>Adicionar à agenda</span>
+      </a>
+      <a class="btn btn--sim" id="ag-google" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=15+anos+da+Karoline&amp;dates=20261114T220000Z/20261115T030000Z&amp;location=Chap%C3%A9u+de+Palha%2C+R.+Seis%2C+5%2C+Imperatriz+-+MA%2C+65913-726&amp;details=Neste+dia+especial%2C+sua+presen%C3%A7a+%C3%A9+mais+que+importante%21%0A%0AMapa%3A+https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3DChap%25C3%25A9u%2Bde%2BPalha%2BR.%2BSeis%252C%2B5%252C%2BImperatriz%2B-%2BMA%252C%2B65913-726" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M12 13.5v4.5M9.750 15.750h4.500"/></svg>
+        <span>Adicionar à agenda</span>
+      </a>
+      <button type="button" class="agenda__outro" id="ag-outro">Usar outro calendário</button>
+      <p class="agenda__aviso" id="ag-aviso" role="status" aria-live="polite"></p>
+      <button type="button" class="agenda__fechar" id="ag-fechar">Fechar</button>
+    </div>
+  </section>
 </dialog>
 
 <dialog class="folha" id="folha-mapa" aria-labelledby="t-mapa">
