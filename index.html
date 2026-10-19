@@ -111,7 +111,7 @@
 </dialog>
 
 <dialog class="folha" id="folha-confirmar" aria-labelledby="t-confirmar" data-etapa="1">
-  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-confirmar">Confirmar presença</h2><p class="folha__sub" id="sub-confirmar">preencha seus dados para continuar</p><div class="passos" aria-hidden="true"><span class="on"></span><span id="passo2"></span></div></form>
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-confirmar">Confirmar presença</h2><p class="folha__sub" id="sub-confirmar">preencha seus dados para continuar</p><div class="passos so-etapa-fluxo" aria-hidden="true"><span class="on"></span><span id="passo2"></span></div></form>
   <div class="folha__corpo">
     <div class="prazo so-etapa1" id="prazo">
       <p class="prazo__tit" id="prazo-tit">Confirme até <b>25/10</b></p>
@@ -122,6 +122,17 @@
         <div><b id="cd-s">00</b><span>seg</span></div>
       </div>
     </div>
+    <section class="status so-status" id="status-resposta" aria-live="polite">
+      <div class="st-selo" id="st-selo" aria-hidden="true"></div>
+      <h3 id="st-titulo"></h3>
+      <p class="st-nome" id="st-nome"></p>
+      <p class="st-presente" id="st-presente" hidden></p>
+      <p class="st-texto" id="st-texto"></p>
+      <div class="st-acoes">
+        <button type="button" class="btn btn--sim" id="st-agenda">Adicionar à agenda</button>
+        <button type="button" class="btn btn--nao" id="st-alterar">Alterar minha resposta</button>
+      </div>
+    </section>
     <form id="form-rsvp" class="campos" novalidate>
       <label class="so-etapa1">Nome completo
         <input name="nome" required autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" maxlength="80" placeholder="Nome e sobrenome" aria-describedby="erro-nome">
