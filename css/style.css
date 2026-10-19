@@ -185,3 +185,15 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .rodape-fixo .retorno{min-height:0;margin-bottom:calc(10*var(--s))}
 .rodape-fixo .retorno:empty{display:none}
 .btn[disabled]{background:#f3dce6;color:#a98a99;box-shadow:none;cursor:not-allowed}
+
+.escolha--form{margin-top:calc(2*var(--s))}
+.escolha__tit{font-weight:600;font-size:calc(36*var(--s));line-height:1.333;letter-spacing:-.04em;color:var(--rosa);padding:0}
+.escolha__dica{font-size:calc(25*var(--s));color:#8a7380;margin:calc(4*var(--s)) 0 calc(18*var(--s))}
+.escolha--form .item{padding:calc(16*var(--s)) calc(22*var(--s));gap:calc(22*var(--s))}
+.escolha--form .item__icone{width:calc(72*var(--s));height:calc(72*var(--s))}
+.escolha--form .item__txt b{font-size:calc(29*var(--s))}
+.escolha--form .item__txt span{font-size:calc(23*var(--s))}
+.escolha--form .lista{gap:calc(12*var(--s))}
+.escolha--form .erro-campo{display:block;margin-top:calc(10*var(--s))}
+.escolha--form .erro-campo:empty{display:none}
+.escolha--form.invalido .escolha__tit{color:#b3261e}

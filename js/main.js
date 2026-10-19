@@ -62,9 +62,8 @@
     if (!ok.open) ok.showModal();
   }
   // Pré-visualização das telas: index.html#confirmado ou #rejeitado
-  if (location.hash === "#confirmado") mostrarSucesso(false);
+  if (location.hash === "#confirmado") mostrarSucesso(false, null, "Presente: Anel · Tamanho 18");
   if (location.hash === "#rejeitado") mostrarSucesso(true);
-  if (location.hash === "#presente-escolhido") mostrarSucesso(false, "Presente escolhido!", "Você vai presentear com: Anel · Tamanho 18");
 
   // ---- Prazo de confirmação: até 25/10/2026 23:59:59 (Brasília) ----
   var PRAZO = new Date("2026-10-25T23:59:59-03:00").getTime();
@@ -140,6 +139,37 @@
 
   if (form) {
     var inNome = form.elements.nome, inTel = form.elements.telefone;
+    var grupoPres = form.querySelector(".escolha--form");
+    var campoOutro = document.getElementById("outro-campo");
+    var textoOutro = document.getElementById("outro-texto");
+    var erroPres = document.getElementById("erro-presente");
+
+    function presenteAtual() {
+      var r = form.querySelector("input[name=presente]:checked");
+      if (!r) return null;
+      if (r.value === "__outro") {
+        return { outro: true, presente: textoOutro.value.replace(/\s+/g, " ").trim(), detalhe: "" };
+      }
+      return { outro: false, presente: r.value, detalhe: r.dataset.detalhe || "" };
+    }
+    function validarPresente() {
+      var p = presenteAtual();
+      if (!p) return "Escolha como você vai presentear.";
+      if (p.presente.length < 3) return "Escreva qual presente você vai dar.";
+      return "";
+    }
+    function mostrarErroPresente(msg) {
+      erroPres.textContent = msg;
+      grupoPres.classList.toggle("invalido", !!msg);
+    }
+    form.addEventListener("change", function (e) {
+      if (!e.target.matches("input[name=presente]")) return;
+      var outro = form.querySelector("input[value=__outro]").checked;
+      campoOutro.hidden = !outro;
+      if (outro) textoOutro.focus();
+      mostrarErroPresente("");
+    });
+    textoOutro.addEventListener("input", function () { if (erroPres.textContent) mostrarErroPresente(validarPresente()); });
     inTel.addEventListener("input", function () {
       inTel.value = formatarTelefone(inTel.value);
       if (inTel.getAttribute("aria-invalid") === "true") mostrarErro(inTel, validarTelefone(inTel.value));
@@ -170,10 +200,17 @@
       var nome = limparNome(inNome.value);
       var okNome = mostrarErro(inNome, validarNome(nome));
       var okTel = mostrarErro(inTel, validarTelefone(inTel.value));
+      var erroP = rejeitar ? "" : validarPresente();
+      mostrarErroPresente(erroP);
       if (!okNome || !okTel) {
         (okNome ? inTel : inNome).focus();
         return;
       }
+      if (erroP) {
+        (presenteAtual() ? textoOutro : form.querySelector("input[name=presente]")).focus();
+        return;
+      }
+      var pres = rejeitar ? null : presenteAtual();
       var telefone = soDigitos(inTel.value);
       if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
         retorno.className = "retorno erro";
@@ -183,7 +220,10 @@
       var corpo = {
         nome: nome,
         telefone: telefone,
-        confirmado: !rejeitar
+        confirmado: !rejeitar,
+        presente: pres ? pres.presente : null,
+        presente_detalhe: pres && pres.detalhe ? pres.detalhe : null,
+        presente_outro: pres ? pres.outro : false
       };
       retorno.textContent = "Enviando…";
       // on_conflict + merge-duplicates: quem já confirmou pode desconfirmar (e vice-versa) com o mesmo número.
@@ -202,7 +242,8 @@
         inNome.setAttribute("aria-invalid", "false");
         inTel.setAttribute("aria-invalid", "false");
         retorno.textContent = "";
-        mostrarSucesso(rejeitar);
+        campoOutro.hidden = true;
+        mostrarSucesso(rejeitar, null, pres ? "Presente: " + pres.presente + (pres.detalhe ? " · " + pres.detalhe : "") : "");
       }).catch(function () {
         retorno.className = "retorno erro";
         retorno.textContent = "Não foi possível enviar agora. Tente novamente.";
@@ -210,70 +251,4 @@
     });
   }
 
-  // ---- Escolha de presente ----
-  var formPres = document.getElementById("form-presente");
-  if (formPres) {
-    var btnPres = document.getElementById("btn-presente");
-    var campoOutro = document.getElementById("outro-campo");
-    var textoOutro = document.getElementById("outro-texto");
-    var retPres = document.getElementById("retorno-presente");
-
-    function presenteAtual() {
-      var r = formPres.querySelector("input[name=presente]:checked");
-      if (!r) return null;
-      if (r.value === "__outro") {
-        var t = textoOutro.value.replace(/\s+/g, " ").trim();
-        return { outro: true, presente: t, detalhe: "" };
-      }
-      return { outro: false, presente: r.value, detalhe: r.dataset.detalhe || "" };
-    }
-    function atualizarBotao() {
-      var p = presenteAtual();
-      var ok = !!p && p.presente.length >= 3;
-      btnPres.disabled = !ok;
-      btnPres.textContent = !p ? "Escolha uma opção acima"
-        : ok ? "Escolher este presente" : "Escreva qual presente você vai dar";
-    }
-    formPres.addEventListener("change", function () {
-      var outro = formPres.querySelector("input[value=__outro]").checked;
-      campoOutro.hidden = !outro;
-      if (outro) textoOutro.focus();
-      retPres.textContent = "";
-      atualizarBotao();
-    });
-    textoOutro.addEventListener("input", atualizarBotao);
-
-    formPres.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var p = presenteAtual();
-      if (!p || p.presente.length < 3) return;
-      retPres.className = "retorno";
-      if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
-        retPres.className = "retorno erro";
-        retPres.textContent = "O envio ainda não está conectado ao banco de dados.";
-        return;
-      }
-      retPres.textContent = "Enviando…";
-      fetch(cfg.supabaseUrl + "/rest/v1/escolhas_presentes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: cfg.supabaseAnonKey,
-          Authorization: "Bearer " + cfg.supabaseAnonKey,
-          Prefer: "return=minimal"
-        },
-        body: JSON.stringify({ presente: p.presente, detalhe: p.detalhe || null, outro: p.outro })
-      }).then(function (r) {
-        if (!r.ok) throw new Error(r.status);
-        retPres.textContent = "";
-        mostrarSucesso(false, "Presente escolhido!", "Você vai presentear com: " + p.presente + (p.detalhe ? " · " + p.detalhe : ""));
-        formPres.reset();
-        campoOutro.hidden = true;
-        atualizarBotao();
-      }).catch(function () {
-        retPres.className = "retorno erro";
-        retPres.textContent = "Não foi possível enviar agora. Tente novamente.";
-      });
-    });
-  }
 })();
