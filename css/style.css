@@ -24,7 +24,9 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
   --u:calc(100cqw / 810);
   background:var(--papel);
 }
-.convite > *,.arte > *{position:absolute}
+.convite > *,.arte > *,.conteudo > *{position:absolute}
+/* Container do conteúdo: centralizado na horizontal dentro da composição */
+.conteudo{left:50%;top:0;width:100%;height:100%;transform:translateX(-50%)}
 .arte{left:0;top:50%;width:100%;height:calc(1440*var(--u));transform:translateY(-50%)}
 
 /* Rosas */
