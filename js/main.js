@@ -191,21 +191,40 @@
       if (inTel.value) mostrarErro(inTel, validarTelefone(inTel.value));
     });
 
+    var dlgConf = document.getElementById("folha-confirmar");
+    function irEtapa(n) {
+      dlgConf.dataset.etapa = String(n);
+      document.getElementById("passo2").className = n === 2 ? "on" : "";
+      document.getElementById("t-confirmar").textContent = n === 2 ? "Escolha como presentear" : "Confirmar presença";
+      document.getElementById("sub-confirmar").textContent = n === 2 ? "último passo para confirmar a sua presença" : "preencha seus dados para continuar";
+      dlgConf.scrollTo(0, 0);
+    }
+    document.getElementById("voltar-etapa").addEventListener("click", function () { irEtapa(1); });
+    dlgConf.addEventListener("close", function () { irEtapa(1); });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (encerrado) return;
-      var rejeitar = e.submitter && e.submitter.value === "rejeitar";
+      var acao = e.submitter ? e.submitter.value : "avancar";
+      var rejeitar = acao === "rejeitar";
       retorno.className = "retorno";
       retorno.textContent = "";
       var nome = limparNome(inNome.value);
       var okNome = mostrarErro(inNome, validarNome(nome));
       var okTel = mostrarErro(inTel, validarTelefone(inTel.value));
-      var erroP = rejeitar ? "" : validarPresente();
-      mostrarErroPresente(erroP);
       if (!okNome || !okTel) {
+        irEtapa(1);
         (okNome ? inTel : inNome).focus();
         return;
       }
+      if (acao === "avancar") {
+        document.getElementById("resumo-etapa2").textContent = "Olá, " + nome.split(" ")[0] + "! Selecione uma sugestão ou conte o seu presente em “Outro”.";
+        mostrarErroPresente("");
+        irEtapa(2);
+        return;
+      }
+      var erroP = rejeitar ? "" : validarPresente();
+      mostrarErroPresente(erroP);
       if (erroP) {
         (presenteAtual() ? textoOutro : form.querySelector("input[name=presente]")).focus();
         return;

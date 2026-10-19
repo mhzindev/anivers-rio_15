@@ -93,10 +93,10 @@
   </div>
 </dialog>
 
-<dialog class="folha" id="folha-confirmar" aria-labelledby="t-confirmar">
-  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-confirmar">Confirmar presença</h2><p class="folha__sub">preencha os dados e escolha como presentear</p></form>
+<dialog class="folha" id="folha-confirmar" aria-labelledby="t-confirmar" data-etapa="1">
+  <form method="dialog" class="folha__topo"><button class="barra" aria-label="Fechar"></button><h2 id="t-confirmar">Confirmar presença</h2><p class="folha__sub" id="sub-confirmar">preencha seus dados para continuar</p><div class="passos" aria-hidden="true"><span class="on"></span><span id="passo2"></span></div></form>
   <div class="folha__corpo">
-    <div class="prazo" id="prazo">
+    <div class="prazo so-etapa1" id="prazo">
       <p class="prazo__tit" id="prazo-tit">Confirme até <b>25/10</b></p>
       <div class="prazo__rel" id="prazo-rel" role="timer" aria-label="Tempo restante para confirmar">
         <div><b id="cd-d">00</b><span>dias</span></div>
@@ -106,16 +106,16 @@
       </div>
     </div>
     <form id="form-rsvp" class="campos" novalidate>
-      <label>Nome completo
+      <label class="so-etapa1">Nome completo
         <input name="nome" required autocomplete="name" maxlength="80" placeholder="Nome e sobrenome" aria-describedby="erro-nome">
         <span class="erro-campo" id="erro-nome"></span>
       </label>
-      <label>Número (WhatsApp)
+      <label class="so-etapa1">Número (WhatsApp)
         <input name="telefone" type="tel" inputmode="numeric" required autocomplete="tel-national" maxlength="15" placeholder="(99) 99999-9999" aria-describedby="erro-telefone">
         <span class="erro-campo" id="erro-telefone"></span>
       </label>
-      <fieldset class="escolha escolha--form"><legend class="escolha__tit">Escolha como presentear</legend>
-      <p class="escolha__dica">Selecione uma sugestão ou conte o seu presente em “Outro”.</p>
+      <fieldset class="escolha escolha--form so-etapa2"><legend class="sr">Escolha como presentear</legend>
+      <p class="escolha__dica" id="resumo-etapa2"></p>
       <ul class="lista">
       <li><label class="opcao"><input type="radio" name="presente" value="Perfume ou creme de pele"><span class="item"><span class="item__icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="12" height="11" rx="3"/><path d="M10 10V7h4v3M9.5 4h5v3h-5z"/></svg></span><span class="item__txt"><b>Perfume ou creme de pele</b></span><span class="marca" aria-hidden="true"></span></span></label></li>
       <li><label class="opcao"><input type="radio" name="presente" value="Colar ou pulseira" data-detalhe="Dourada ou prata (aço cirúrgico ou prata 925)"><span class="item"><span class="item__icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4c0 8 3 11 7 11s7-3 7-11"/><circle cx="12" cy="18.5" r="2.5"/></svg></span><span class="item__txt"><b>Colar ou pulseira</b><span>Dourada ou prata (aço cirúrgico ou prata 925)</span></span><span class="marca" aria-hidden="true"></span></span></label></li>
@@ -128,14 +128,24 @@
         <div class="outro-campo" id="outro-campo" hidden><label for="outro-texto">Qual presente você vai dar?</label><input id="outro-texto" maxlength="80" autocomplete="off" placeholder="Escreva aqui"></div></li>
       </ul>
       <span class="erro-campo" id="erro-presente" role="alert"></span></fieldset>
-      <div class="decisao">
-        <button class="btn btn--sim" type="submit" name="acao" value="confirmar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.8l4.4 4.4L19 7.4"/></svg>
-          Confirmar presença
+      <div class="decisao so-etapa1">
+        <button class="btn btn--sim" type="submit" name="acao" value="avancar">
+          Ir para confirmação
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
         <button class="btn btn--nao" type="submit" name="acao" value="rejeitar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
           Rejeitar convite
+        </button>
+      </div>
+      <div class="decisao so-etapa2">
+        <button class="btn btn--sim" type="submit" name="acao" value="confirmar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.8l4.4 4.4L19 7.4"/></svg>
+          Confirmar presença
+        </button>
+        <button class="btn btn--nao" type="button" id="voltar-etapa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Voltar
         </button>
       </div>
       <p class="retorno" id="retorno-rsvp" role="status" aria-live="polite"></p>

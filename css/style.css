@@ -197,3 +197,11 @@ body{font-family:"Glacial Indifference","Jost",system-ui,sans-serif;color:var(--
 .escolha--form .erro-campo{display:block;margin-top:calc(10*var(--s))}
 .escolha--form .erro-campo:empty{display:none}
 .escolha--form.invalido .escolha__tit{color:#b3261e}
+
+/* Etapas da confirmação */
+[data-etapa="1"] .so-etapa2,[data-etapa="2"] .so-etapa1{display:none}
+.passos{display:flex;gap:calc(10*var(--s));margin-top:calc(22*var(--s))}
+.passos span{width:calc(64*var(--s));height:calc(8*var(--s));min-height:4px;border-radius:99px;background:#f3d3e0;transition:background .2s ease}
+.passos span.on{background:var(--rosa)}
+.escolha__dica{margin:0 0 calc(18*var(--s));font-size:calc(27*var(--s));color:#8a7380}
+.escolha__dica b{color:var(--vinho);font-weight:600}
