@@ -2,7 +2,7 @@
   var cfg = window.CONVITE_CONFIG || {};
   var $ = function (id) { return document.getElementById(id); };
   var TZ = "America/Fortaleza";
-  var PRAZO = new Date("2026-10-25T23:59:59-03:00").getTime();
+  var PRAZO = new Date("2026-11-01T23:59:59-03:00").getTime();
   var EVENTO = new Date("2026-11-14T19:00:00-03:00").getTime();
   var LIMITE = 10;
 
@@ -197,7 +197,7 @@
   // ---------- prazos ----------
   function relogio() {
     var resta = PRAZO - Date.now();
-    if (resta <= 0) { $("prazo-tit").innerHTML = "Confirmações <b>encerradas</b> em 25/10"; $("prazo-num").textContent = "Prazo encerrado"; }
+    if (resta <= 0) { $("prazo-tit").innerHTML = "Confirmações <b>encerradas</b> em 01/11"; $("prazo-num").textContent = "Prazo encerrado"; }
     else {
       var s = Math.floor(resta / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
       $("prazo-num").textContent = d + " dias e " + h + " h" + (d === 0 ? " " + m + " min" : "");

@@ -100,8 +100,8 @@
   if (location.hash === "#confirmado") mostrarSucesso(false, null, "Presente: Anel · Tamanho 18");
   if (location.hash === "#rejeitado") mostrarSucesso(true);
 
-  // ---- Prazo de confirmação: até 25/10/2026 23:59:59 (Brasília) ----
-  var PRAZO = new Date("2026-10-25T23:59:59-03:00").getTime();
+  // ---- Prazo de confirmação: até 01/11/2026 23:59:59 (Brasília) ----
+  var PRAZO = new Date("2026-11-01T23:59:59-03:00").getTime();
   var prazo = document.getElementById("prazo");
   var formRsvp = document.getElementById("form-rsvp");
   var encerrado = false;
@@ -316,8 +316,8 @@
       document.getElementById("st-presente").hidden = !pres;
       document.getElementById("st-texto").textContent = encerrado
         ? "O prazo para alterar a resposta foi encerrado."
-        : sim ? "Mudou de ideia? Você pode alterar sua resposta até 25/10."
-              : "Mudou de ideia? Você pode confirmar sua presença até 25/10.";
+        : sim ? "Mudou de ideia? Você pode alterar sua resposta até 01/11."
+              : "Mudou de ideia? Você pode confirmar sua presença até 01/11.";
       document.getElementById("st-agenda").hidden = !sim;
       document.getElementById("st-alterar").hidden = encerrado;
       document.getElementById("st-alterar").textContent = sim ? "Alterar minha resposta" : "Mudei de ideia";
